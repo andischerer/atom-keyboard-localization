@@ -1,0 +1,13 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Compatible'
+      'submenu': [
+        { 'label': '@', 'command': 'compatible:at' },
+        { 'label': '\\', 'command': 'compatible:backslash' }
+      ]
+    ]
+  }
+]
