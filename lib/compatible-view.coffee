@@ -18,9 +18,9 @@ class CompatibleView extends View
     @detach()
 
   at: ->
-    editor = atom.workspace.activePaneItem
-    editor.insertText('@')
+    editor = atom.workspace.getActiveEditor()
+    editor.insertText('@') if editor
 
   backslash: ->
-    editor = atom.workspace.activePaneItem
-    editor.insertText('\\')
+    editor = atom.workspace.getActiveEditor()
+    editor.insertText('\\') if editor
