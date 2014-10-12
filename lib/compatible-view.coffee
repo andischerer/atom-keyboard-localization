@@ -7,8 +7,8 @@ class CompatibleView extends View
       @div "The Test package is Alive! It's ALIVE!", class: "message"
 
   initialize: (serializeState) ->
-    atom.workspaceView.command "compatible:at", => @at()
-    atom.workspaceView.command "compatible:backslash", => @backslash()
+    atom.workspaceView.command "compatible:at", @at
+    atom.workspaceView.command "compatible:backslash", @backslash
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
@@ -17,10 +17,10 @@ class CompatibleView extends View
   destroy: ->
     @detach()
 
-  at: ->
-    editor = atom.workspace.activePaneItem
-    editor.insertText('@')
+  at: (event) ->
+    editor = event.targetView().editor
+    editor.insertText('@') if editor
 
-  backslash: ->
-    editor = atom.workspace.activePaneItem
-    editor.insertText('\\')
+  backslash: (event) ->
+    editor = event.targetView().editor
+    editor.insertText('\\') if editor
