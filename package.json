@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Kaymap compatibility for windows",
   "activationEvents": ["compatible:at", "compatible:backslash"],
-  "repository": "https://github.com/DavidBadura/atom-keymap-compatible.git",
+  "repository": "https://github.com/andischerer/atom-keymap-compatible.git",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
