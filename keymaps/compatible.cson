@@ -7,6 +7,18 @@
 
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
+
+# unset previous bindings
+".platform-win32 atom-workspace atom-text-editor:not([mini])":
+  "ctrl-alt-[": "unset!" # kill "editor:fold-current-row"
+
 '.platform-win32 atom-text-editor':
+  'ctrl-alt-q': 'unset!' # kill "autoflow:reflow-selection"
+
+# set new bindings
+'.platform-win32 atom-workspace atom-text-editor':
+  # at-sign
   'ctrl-alt-q': 'compatible:at'
+
+  # backslash
   'ctrl-alt-[': 'compatible:backslash'
