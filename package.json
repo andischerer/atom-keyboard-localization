@@ -1,7 +1,7 @@
 {
   "name": "keymap-compatible-de",
   "main": "./lib/compatible",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "German keymap compatibility for windows",
   "activationEvents": ["compatible:at", "compatible:backslash"],
   "repository": "https://github.com/andischerer/atom-keymap-compatible.git",

@@ -8,17 +8,56 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 
+# fix at-sign and backslash
+# ------------------------------------------------------------------------------
 # unset previous bindings
-".platform-win32 atom-workspace atom-text-editor:not([mini])":
-  "ctrl-alt-[": "unset!" # kill "editor:fold-current-row"
+'.platform-win32 atom-workspace atom-text-editor:not([mini])':
+  'ctrl-alt-[': 'unset!' # 'editor:fold-current-row'
 
 '.platform-win32 atom-text-editor':
-  'ctrl-alt-q': 'unset!' # kill "autoflow:reflow-selection"
+  'ctrl-alt-q': 'unset!' # 'autoflow:reflow-selection'
 
-# set new bindings
 '.platform-win32 atom-workspace atom-text-editor':
-  # at-sign
   'ctrl-alt-q': 'compatible:at'
-
-  # backslash
   'ctrl-alt-[': 'compatible:backslash'
+
+# fix atom core bindings
+# ------------------------------------------------------------------------------
+# toggle line comments
+'.platform-win32 atom-workspace atom-text-editor:not([mini])':
+  'ctrl-/': 'unset!'
+'.platform-win32 atom-text-editor':
+  'ctrl-7': 'editor:toggle-line-comments'
+
+# fix vim-mode bindings
+# ------------------------------------------------------------------------------
+'.platform-win32 atom-text-editor.vim-mode:not(.insert-mode)':
+  '}': 'unset!' # 'vim-mode:move-to-next-paragraph'
+  '{': 'unset!' # 'vim-mode:move-to-previous-paragraph'
+  '^': 'unset!' # 'vim-mode:move-to-first-character-of-line'
+  '+': 'unset!' # 'vim-mode:move-to-first-character-of-line-down'
+  '=': 'unset!' # 'vim-mode:auto-indent'
+  '~': 'unset!' # 'vim-mode:toggle-case'
+  ';': 'unset!' # 'vim-mode:repeat-find'
+  '`': 'unset!' # 'vim-mode:move-to-mark-literal'
+  '\'': 'unset!' # 'vim-mode:move-to-mark'
+  '/': 'unset!' # 'vim-mode:search'
+  '?': 'unset!' # 'vim-mode:revese-search'
+  '*': 'unset!' # 'vim-mode:search-current-word'
+  '#': 'unset!' # 'vim-mode:reverse-search-current-word'
+
+  # indend and outdent <> wont work. They fire the same key ...
+
+  'ctrl-alt-0': 'vim-mode:move-to-next-paragraph'
+  'ctrl-alt-7': 'vim-mode:move-to-previous-paragraph'
+  '\\': 'vim-mode:move-to-first-character-of-line'
+  '=': 'vim-mode:move-to-first-character-of-line-down'
+  ')': 'vim-mode:auto-indent'
+  'ctrl-alt-=': 'vim-mode:toggle-case'
+  '<': 'vim-mode:repeat-find'
+  '}': 'vim-mode:move-to-mark-literal'
+  '?': 'vim-mode:move-to-mark'
+  '&': 'vim-mode:search'
+  '{': 'vim-mode:revese-search'
+  '+': 'vim-mode:search-current-word'
+  '/': 'vim-mode:reverse-search-current-word'
