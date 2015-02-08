@@ -10,7 +10,8 @@ This is a compatibility package for atom text editor tries to fix wrong keymappi
 - fixes common atom core bindings
 - fixes common vim-mode bindings
 
-### v1.0.1:
+### v1.0.0:
+- Initial Release from [DavidBadura](https://github.com/DavidBadura)
 - fixes at-sign and backslash use
 
 ## References
@@ -18,4 +19,4 @@ This is a compatibility package for atom text editor tries to fix wrong keymappi
 - [atom-keymap Issue #37: Foreign keyboard layouts not working](https://github.com/atom/atom-keymap/issues/37)
 
 ## Credits
-All thanks go to original author -> DavidBadura (https://github.com/DavidBadura)
+All thanks go to original author -> [DavidBadura](https://github.com/DavidBadura)
