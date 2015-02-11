@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>KeyDownEvent Test</title>
+    </head>
+    <body>
+
+        <img src="https://cloud.githubusercontent.com/assets/5219415/3278897/1a409fec-f3db-11e3-8818-37f183c2184e.png" /><br /><br />
+        <img src="https://cloud.githubusercontent.com/assets/5219415/3278895/1819be56-f3db-11e3-9fce-4082d5effb20.png" /><br /><br />
+
+        <pre id="out"></pre>
+        <script charset="utf-8">
+            var elem = document.getElementById('out');
+            document.addEventListener('keydown', function(e) {
+                elem.innerText = '';
+                elem.innerText += e.keyIdentifier + ' | ' + e.keyCode + '\n';
+                elem.innerText += JSON.toString(e);
+            }, false);
+        </script>
+    </body>
+</html>
