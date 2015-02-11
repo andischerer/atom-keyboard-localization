@@ -20,13 +20,13 @@ class CompatibleView extends View
   at: (event) ->
     view = event.targetView()
     if view.editor
-        view.editor.insertText('@')
+      view.editor.insertText('@')
     else if view.model
-        view.model.selections[0]?.editor.insertText("@")
+      view.model.selections[0]?.editor.insertText("@")
 
   backslash: (event) ->
     view = event.targetView()
     if view.editor
-        view.editor.insertText('\\')
+      view.editor.insertText('\\')
     else if view.model
-        view.model.selections[0]?.editor.insertText("\\")
+      view.model.selections[0]?.editor.insertText("\\")
