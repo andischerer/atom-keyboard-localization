@@ -28,5 +28,5 @@ class CompatibleView extends View
     view = event.targetView()
     if view.editor
         view.editor.insertText('\\')
-    else if view
+    else if view.model
         view.model.selections[0]?.editor.insertText("\\")
