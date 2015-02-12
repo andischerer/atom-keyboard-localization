@@ -1,10 +1,22 @@
-# Compatibility package for german keyboard layout
+# Keyboard localization package for non US-Keyboard Layouts
+This is a compatibility package for atom text editor which tries to remap keycodes for your given keyboard layout.
+This package tries to fill the gap till [this issue](https://github.com/atom/atom-keymap/issues/37) is fixed.
 
-This is a compatibility package for atom text editor tries to fix wrong keymappings for the german keyboard layout.
+## Generate your own keymap
+You can generate your own localized key-translation-table for your keyboard layout.
+Open the generator `keybinding-generator\generate-keybindings.html` in this package in your Browser and press all keys(with and without modifiers Shift/Alt) from your keyboard who differ from the US-Layout. Copy the generated JSON-keybindings and place it as Json-File in `lib\keymaps\`.
+Then set the package setting `useKeyboardLayout` to your given filename(without fileextension)
 
-![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+German keybindings are already included.
+
+Feel free to send me PRs so i can add more bindings.
+
+
 
 ## Changelog
+### v1.1.0:
+- complete rewrite
+- added german key translations
 
 ### v1.0.1:
 - fixes common atom core bindings
@@ -14,9 +26,6 @@ This is a compatibility package for atom text editor tries to fix wrong keymappi
 - Initial Release from [DavidBadura](https://github.com/DavidBadura)
 - fixes at-sign and backslash use
 
-## References
-- [Chromium Issue #263724: KeyboardEvent does not match the latest specification](https://code.google.com/p/chromium/issues/detail?id=263724)
-- [atom-keymap Issue #37: Foreign keyboard layouts not working](https://github.com/atom/atom-keymap/issues/37)
 
 ## Credits
 All thanks go to original author -> [DavidBadura](https://github.com/DavidBadura)
