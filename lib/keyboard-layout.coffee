@@ -7,7 +7,7 @@ module.exports =
   activate: (state) ->
     if atom
       # create Translator
-      @keyMapper = new KeyMapper();
+      @keyMapper = new KeyMapper()
 
       @keystrokeForKeyboardEventCb = atom.keymap.keystrokeForKeyboardEvent
       self = @

@@ -1,11 +1,24 @@
+path = require('path')
+fs = require('fs-plus')
+
 module.exports =
 class KeyMapper
+  translationTable: null
 
   constructor: ->
+    deDE = path.resolve(__dirname, './keymaps/de_DE.json')
+    @loadTranslationTable(deDE)
 
   destroy: ->
+    @translationTable = null
 
-  lastKey: []
+  loadTranslationTable:(pathToTransTable) ->
+    if fs.isFileSync(pathToTransTable)
+      tansTableContentJson = fs.readFileSync(pathToTransTable, 'utf8')
+      @translationTable = JSON.parse(tansTableContentJson)
+    else
+      console.log('atom-keymap-compatible: error loading keybindings from' +
+        pathToTransTable)
 
   createNewKey: (event) ->
     return newKey =
@@ -18,63 +31,35 @@ class KeyMapper
       shiftKey: event.shiftKey
       metaKey: event.metaKey
 
-  translate: (newKey) ->
-    # TODO: This key mutation could be way more elegant. Do it with a mapping table ?
+  # copy from atom-keymap/helpers.coffee
+  charCodeFromKeyIdentifier: (keyIdentifier) ->
+    parseInt(keyIdentifier[2..], 16) if keyIdentifier.indexOf('U+') is 0
 
-    # ^ Key
-    if newKey.keyCode == 220 && !newKey.shiftKey
-      newKey.keyIdentifier = 'U+0036'
-      newKey.keyCode = 54
-      newKey.which = 54
-      newKey.shiftKey = true
-      newKey.altKey = false
-      newKey.ctrlKey = false
-      return newKey
+  charCodeToKeyIdentifier: (charCode) ->
+    return 'U+00' + charCode.toString(16).toUpperCase()
 
-    # ~ Key => TODO: recheck: WindowsAndLinuxCharCodeTranslations => works for now
-    if newKey.keyCode == 187 && newKey.altKey
-      newKey.keyIdentifier = 'U+007E'
-      newKey.keyCode = 126
-      newKey.which = 126
-      newKey.shiftKey = true
-      newKey.altKey = false
-      newKey.ctrlKey = false
-      return newKey
+  translateKeyBinding: (key) ->
+    identifier = @charCodeFromKeyIdentifier(key.keyIdentifier)
+    charCode = null
+    if @translationTable? && identifier? && @translationTable[identifier]?
+      if translation = @translationTable[identifier]
+        if key.shiftKey && translation.shifted?
+          charCode = translation.shifted
+          key.shiftKey = false
+        else if key.altKey && translation.alted?
+          charCode = translation.alted
+          key.altKey = false
+        else if translation.unshifted?
+          charCode = translation.unshifted
 
-    # " Key => TODO: recheck: WindowsAndLinuxCharCodeTranslations => works for now
-    if newKey.keyCode == 50 && newKey.shiftKey
-      newKey.keyIdentifier = 'U+0022'
-      newKey.keyCode = 34
-      newKey.which = 34
-      newKey.shiftKey = true
-      newKey.altKey = false
-      newKey.ctrlKey = false
-      return newKey
+    if charCode?
+      key.keyIdentifier = @charCodeToKeyIdentifier(charCode)
+      key.keyCode = charCode
+      key.which = charCode
 
-    # @ Key
-    if newKey.keyCode == 81 && newKey.altKey
-      newKey.keyIdentifier = 'U+0032'
-      newKey.keyCode = 50
-      newKey.which = 50
-      newKey.shiftKey = true
-      newKey.altKey = false
-      newKey.ctrlKey = false
-      return newKey
-
-    # \ Key
-    if newKey.keyCode == 219 && newKey.altKey
-      newKey.keyIdentifier = 'U+0032'
-      newKey.keyCode = 50
-      newKey.which = 50
-      newKey.shiftKey = true
-      newKey.altKey = false
-      newKey.ctrlKey = false
-      return newKey
-
-    return newKey
+    return key
 
   remap: (event) ->
     newKey = @createNewKey(event)
-    newKey = @translate(newKey)
-    console.log(newKey)
+    newKey = @translateKeyBinding(newKey)
     return newKey
