@@ -4,10 +4,8 @@ module.exports =
   keystrokeForKeyboardEventCb: null
   keyMapper: null
   configDefaults:
-    useKeyboardLayout: [
-      'de_DE'
-    ]
-
+    useKeyboardLayout: 'de_DE'
+    
   activate: (state) ->
     if atom
       # create Translator

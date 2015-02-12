@@ -6,8 +6,9 @@ class KeyMapper
   translationTable: null
 
   constructor: ->
-    deDE = path.resolve(__dirname, './keymaps/de_DE.json')
-    @loadTranslationTable(deDE)
+    if atom.config.get('keyboard-localization.useKeyboardLayout')[0]?
+      transTablePath = path.resolve(__dirname, './keymaps/', atom.config.get('keyboard-localization.useKeyboardLayout')[0] + '.json')
+      @loadTranslationTable(transTablePath)
 
   destroy: ->
     @translationTable = null
@@ -17,7 +18,7 @@ class KeyMapper
       tansTableContentJson = fs.readFileSync(pathToTransTable, 'utf8')
       @translationTable = JSON.parse(tansTableContentJson)
     else
-      console.log('atom-keymap-compatible: error loading keybindings from' +
+      console.log('atom-keymap-compatible: error loading translation table: ' +
         pathToTransTable)
 
   createNewKey: (event) ->
