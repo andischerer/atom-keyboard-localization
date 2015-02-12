@@ -35,8 +35,13 @@ class KeyMapper
   charCodeFromKeyIdentifier: (keyIdentifier) ->
     parseInt(keyIdentifier[2..], 16) if keyIdentifier.indexOf('U+') is 0
 
+  padZero: (strToPad, size) ->
+    while strToPad.length < size
+      strToPad = '0' + strToPad
+    return strToPad
+
   charCodeToKeyIdentifier: (charCode) ->
-    return 'U+00' + charCode.toString(16).toUpperCase()
+    return 'U+' + @padZero(charCode.toString(16).toUpperCase(), 4)
 
   translateKeyBinding: (key) ->
     identifier = @charCodeFromKeyIdentifier(key.keyIdentifier)
@@ -49,6 +54,7 @@ class KeyMapper
         else if key.altKey && translation.alted?
           charCode = translation.alted
           key.altKey = false
+          key.ctrlKey = false
         else if translation.unshifted?
           charCode = translation.unshifted
 
