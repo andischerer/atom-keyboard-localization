@@ -1,6 +1,6 @@
 {
-  "name": "keymap-compatible-de",
-  "main": "./lib/keyboard-layout",
+  "name": "keyboard-localization",
+  "main": "./lib/keyboard-localization",
   "version": "1.0.1",
   "description": "German keymap compatibility for windows",
   "repository": "https://github.com/andischerer/atom-keymap-compatible.git",
