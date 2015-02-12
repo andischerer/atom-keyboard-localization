@@ -36,8 +36,16 @@
               }
             }
 
+            function padZero(strToPad, size) {
+                while (strToPad.length < size) {
+                    strToPad = "0" + strToPad
+                }
+                return strToPad;
+            }
+
             function decToHex(dec) {
-                return 'U+00' + dec.toString(16).toUpperCase();
+                hex = dec.toString(16).toUpperCase()
+                return 'U+' + padZero(hex, 4);
             }
 
             function printKey(e) {
