@@ -3,7 +3,7 @@
   "main": "./lib/keyboard-localization",
   "version": "1.0.1",
   "description": "German keymap compatibility for windows",
-  "repository": "https://github.com/andischerer/atom-keymap-compatible.git",
+  "repository": "https://github.com/andischerer/atom-keyboard-localization.git",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"

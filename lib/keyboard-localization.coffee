@@ -3,6 +3,10 @@ KeyMapper = require './key-mapper'
 module.exports =
   keystrokeForKeyboardEventCb: null
   keyMapper: null
+  configDefaults:
+    useKeyboardLayout: [
+      'de_DE'
+    ]
 
   activate: (state) ->
     if atom
