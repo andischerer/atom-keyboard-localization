@@ -6,8 +6,8 @@ class KeyMapper
   translationTable: null
 
   constructor: ->
-    if atom.config.get('keyboard-localization.useKeyboardLayout')[0]?
-      transTablePath = path.resolve(__dirname, './keymaps/', atom.config.get('keyboard-localization.useKeyboardLayout')[0] + '.json')
+    if atom.config.get('keyboard-localization.useKeyboardLayout')?
+      transTablePath = path.resolve(__dirname, './keymaps/', atom.config.get('keyboard-localization.useKeyboardLayout') + '.json')
       @loadTranslationTable(transTablePath)
 
   destroy: ->
