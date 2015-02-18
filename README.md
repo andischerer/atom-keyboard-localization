@@ -14,6 +14,9 @@ Feel free to send me PRs so i can add more bindings.
 
 
 ## Changelog
+### v1.1.1:
+- fixed wrong translation table path in config #4
+
 ### v1.1.0:
 - complete rewrite
 - added german key translations
