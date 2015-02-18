@@ -6,6 +6,7 @@ This package tries to fill the gap till [this issue](https://github.com/atom/ato
 You can generate your own localized key-translation-table for your keyboard layout.
 Open the generator `keybinding-generator\generate-keybindings.html` included in this package in Chrome(other Browsers may not work) and press all keys(with and without modifiers Shift/Alt) from your keyboard who differ from the US-Layout. Copy the generated JSON-keybindings and place it as Json-File in `lib\keymaps\`.
 Then set the package setting `useKeyboardLayout` to your given filename(without fileextension)
+__IMPORTANT NOTE__: Please backup your generated JSON-keybindings. They could get lost on package update!
 
 German keybindings are already included.
 
