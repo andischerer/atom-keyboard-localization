@@ -3,7 +3,8 @@ This is a compatibility package for atom text editor which tries to remap keycod
 This package tries to fill the gap till [this issue](https://github.com/atom/atom-keymap/issues/37) is fixed.
 
 ## Supported Keyboard Layouts atm
-* German 105-key "QWERTZ"
+* German [105-key "QWERTZ"](http://en.wikipedia.org/wiki/File:KB_Germany.svg) (de_DE)
+* German [Neo-Layout](http://www.neo-layout.org/) (neo) - thx [ScreenDriver](https://github.com/ScreenDriver)
 
 Feel free to send me Issues/PRs so i can add more bindings.
 
@@ -16,6 +17,8 @@ __IMPORTANT NOTE__: Please backup your generated JSON-keybindings. They could ge
 
 ## Todo
 * add more foreign Keyboard-Layouts
+* write tests
+* add custom path for keymap file
 
 ## Credits
 All thanks go to original author -> [DavidBadura](https://github.com/DavidBadura)

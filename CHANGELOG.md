@@ -1,3 +1,6 @@
+## v1.1.2:
+* added German Neo-Layout
+
 ## v1.1.1:
 * fixed wrong translation table path in config #4
 
