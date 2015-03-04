@@ -24,10 +24,10 @@
         <script charset="utf-8">
             var down = document.getElementById('down'),
                 press = document.getElementById('press'),
-                action = document.getElementById('action');
-                bindingJson = document.getElementById('bindings');
+                action = document.getElementById('action'),
+                bindingJson = document.getElementById('bindings'),
                 lastDown = null,
-                lastPress = null
+                lastPress = null,
                 mapping = {};
 
             function charCodeFromKeyIdentifier (keyIdentifier) {
@@ -38,13 +38,13 @@
 
             function padZero(strToPad, size) {
                 while (strToPad.length < size) {
-                    strToPad = "0" + strToPad
+                    strToPad = '0' + strToPad;
                 }
                 return strToPad;
             }
 
             function decToHex(dec) {
-                hex = dec.toString(16).toUpperCase()
+                hex = dec.toString(16).toUpperCase();
                 return 'U+' + padZero(hex, 4);
             }
 
@@ -89,7 +89,7 @@
                         if (!mapping[index]) {
                             mapping[index] = {};
                         }
-                        mapping[index][mod] = charCodeFromKeyIdentifier(press.keyIdentifier)
+                        mapping[index][mod] = charCodeFromKeyIdentifier(press.keyIdentifier);
                     } else {
                         action += 'OK => Nothing added\n\n';
                     }
@@ -114,7 +114,7 @@
                   altKey: e.altKey,
                   shiftKey: e.shiftKey,
                   metaKey: e.metaKey
-                }
+                };
             }
 
             document.addEventListener('keydown', function(e) {
