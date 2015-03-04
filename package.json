@@ -2,7 +2,7 @@
   "name": "keyboard-localization",
   "main": "./lib/keyboard-localization",
   "version": "1.1.2",
-  "description": "This is a compatibility package for atom text editor which tries to remap keycodes for your given keyboard layout.",
+  "description": "Foreign language keyboard support for atom.",
   "repository": "https://github.com/andischerer/atom-keyboard-localization.git",
   "license": "MIT",
   "engines": {

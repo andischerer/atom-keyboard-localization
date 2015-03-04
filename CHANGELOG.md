@@ -1,3 +1,10 @@
+## v1.1.3
+* added spain keyboard layout
+* added french keyboard layout
+* added polish keyboard layout
+* small fixes in keybinding-generator
+* config: choose a locale or use a custom path 
+
 ## v1.1.2:
 * added German Neo-Layout
 
