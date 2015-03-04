@@ -1,19 +1,25 @@
 path = require('path')
 fs = require('fs-plus')
+util = require('util')
 
 module.exports =
 class KeyMapper
   translationTable: null
+  keyTranslated: false
 
   constructor: ->
     if atom.config.get('keyboard-localization.useKeyboardLayout')?
-      transTablePath = path.resolve(__dirname, './keymaps/', atom.config.get('keyboard-localization.useKeyboardLayout') + '.json')
+      transTablePath = path.resolve(
+        __dirname,
+        './keymaps/',
+        atom.config.get('keyboard-localization.useKeyboardLayout') + '.json'
+      )
       @loadTranslationTable(transTablePath)
 
   destroy: ->
     @translationTable = null
 
-  loadTranslationTable:(pathToTransTable) ->
+  loadTranslationTable: (pathToTransTable) ->
     if fs.isFileSync(pathToTransTable)
       tansTableContentJson = fs.readFileSync(pathToTransTable, 'utf8')
       @translationTable = JSON.parse(tansTableContentJson)
@@ -21,16 +27,11 @@ class KeyMapper
       console.log('atom-keymap-compatible: error loading translation table: ' +
         pathToTransTable)
 
-  createNewKey: (event) ->
-    return newKey =
-      keyIdentifier: event.keyIdentifier
-      keyCode: event.keyCode
-      location: event.location
-      which: event.which
-      ctrlKey: event.ctrlKey
-      altKey: event.altKey
-      shiftKey: event.shiftKey
-      metaKey: event.metaKey
+  createNewKeyDownEvent: (event) ->
+    newKeyDownEvent = util._extend({} , event)
+    newKeyDownEvent.currentTarget = null
+    newKeyDownEvent.eventPhase = 0
+    return newKeyDownEvent
 
   # copy from atom-keymap/helpers.coffee
   charCodeFromKeyIdentifier: (keyIdentifier) ->
@@ -44,29 +45,65 @@ class KeyMapper
   charCodeToKeyIdentifier: (charCode) ->
     return 'U+' + @padZero(charCode.toString(16).toUpperCase(), 4)
 
-  translateKeyBinding: (key) ->
-    identifier = @charCodeFromKeyIdentifier(key.keyIdentifier)
+  fireKeydownEvent: (keyDownEvent) ->
+    bubbles = keyDownEvent.bubbles
+    cancelable = keyDownEvent.cancelable
+    view = keyDownEvent.view
+    keyIdentifier = keyDownEvent.keyIdentifier
+    location = keyDownEvent.location
+    ctrl = keyDownEvent.ctrlKey
+    alt = keyDownEvent.altKey
+    shift = keyDownEvent.shiftKey
+    cmd = keyDownEvent.metaKey
+
+    event = document.createEvent('KeyboardEvent')
+    event.initKeyboardEvent(
+      'keydown',
+      bubbles,
+      cancelable,
+      view,
+      keyIdentifier,
+      location,
+      ctrl,
+      alt,
+      shift,
+      cmd
+    )
+    Object.defineProperty(event, 'target', get: -> keyDownEvent.target)
+    Object.defineProperty(event, 'path', get: -> keyDownEvent.path)
+    Object.defineProperty(event, 'keyCode', get: -> keyDownEvent.keyCode)
+    Object.defineProperty(event, 'which', get: -> keyDownEvent.keyCode)
+    keyDownEvent.target.dispatchEvent( event )
+    console.log 'fireKeydownEvent', event
+
+  translateKeyBinding: (keyDownEvent) ->
+    identifier = @charCodeFromKeyIdentifier(keyDownEvent.keyIdentifier)
     charCode = null
     if @translationTable? && identifier? && @translationTable[identifier]?
       if translation = @translationTable[identifier]
-        if key.shiftKey && translation.shifted?
+        if keyDownEvent.shiftKey && translation.shifted?
           charCode = translation.shifted
-          key.shiftKey = false
-        else if key.altKey && translation.alted?
+          keyDownEvent.shiftKey = false
+        else if keyDownEvent.altKey && translation.alted?
           charCode = translation.alted
-          key.altKey = false
-          key.ctrlKey = false
+          keyDownEvent.altKey = false
+          keyDownEvent.ctrlKey = false
         else if translation.unshifted?
           charCode = translation.unshifted
 
     if charCode?
-      key.keyIdentifier = @charCodeToKeyIdentifier(charCode)
-      key.keyCode = charCode
-      key.which = charCode
-
-    return key
+      keyDownEvent.keyIdentifier = @charCodeToKeyIdentifier(charCode)
+      keyDownEvent.keyCode = charCode
+      keyDownEvent.which = charCode
+      @keyTranslated = true
 
   remap: (event) ->
-    newKey = @createNewKey(event)
-    newKey = @translateKeyBinding(newKey)
-    return newKey
+    # @keyTranslated = false
+    newKeyDownEvent = @createNewKeyDownEvent(event)
+    @translateKeyBinding(newKeyDownEvent)
+
+    # if @keyTranslated
+      # event.preventDefault()
+      # @fireKeydownEvent(newKeyDownEvent)
+
+    return newKeyDownEvent
