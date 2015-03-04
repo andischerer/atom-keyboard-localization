@@ -4,28 +4,37 @@ util = require('util')
 
 module.exports =
 class KeyMapper
+  pkg: 'keyboard-localization'
   translationTable: null
   keyTranslated: false
 
   constructor: ->
-    if atom.config.get('keyboard-localization.useKeyboardLayout')?
-      transTablePath = path.resolve(
-        __dirname,
-        './keymaps/',
-        atom.config.get('keyboard-localization.useKeyboardLayout') + '.json'
-      )
-      @loadTranslationTable(transTablePath)
+    @loadTranslationTable()
 
   destroy: ->
     @translationTable = null
 
-  loadTranslationTable: (pathToTransTable) ->
+  loadTranslationTable: ->
+    useKeyboardLayout = atom.config.get([@pkg,'useKeyboardLayout'].join('.'))
+    if useKeyboardLayout?
+      pathToTransTable = path.join(
+        __dirname,
+        'keymaps',
+        useKeyboardLayout + '.json'
+      )
+
+    useKeyboardLayoutFromPath = atom.config.get([@pkg,'useKeyboardLayoutFromPath'].join('.'))
+    if useKeyboardLayoutFromPath?
+      customPath = path.normalize(useKeyboardLayoutFromPath)
+      if fs.isFileSync(customPath)
+        pathToTransTable = customPath
+
     if fs.isFileSync(pathToTransTable)
       tansTableContentJson = fs.readFileSync(pathToTransTable, 'utf8')
       @translationTable = JSON.parse(tansTableContentJson)
+      console.log(@pkg, 'Keymap loaded "' + pathToTransTable + '"')
     else
-      console.log('atom-keymap-compatible: error loading translation table: ' +
-        pathToTransTable)
+      console.log(@pkg, 'Error loading keymap "' + pathToTransTable + '"')
 
   createNewKeyDownEvent: (event) ->
     newKeyDownEvent = util._extend({} , event)
