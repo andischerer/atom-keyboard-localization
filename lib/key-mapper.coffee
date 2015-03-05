@@ -6,7 +6,7 @@ module.exports =
 class KeyMapper
   pkg: 'keyboard-localization'
   translationTable: null
-  keyTranslated: false
+  newKeyDownEvent: null
 
   constructor: ->
     @loadTranslationTable()
@@ -37,10 +37,11 @@ class KeyMapper
       console.log(@pkg, 'Error loading keymap "' + pathToTransTable + '"')
 
   createNewKeyDownEvent: (event) ->
-    newKeyDownEvent = util._extend({} , event)
-    newKeyDownEvent.currentTarget = null
-    newKeyDownEvent.eventPhase = 0
-    return newKeyDownEvent
+    keyDownEvent = util._extend({} , event)
+    keyDownEvent.currentTarget = null
+    keyDownEvent.eventPhase = 0
+    keyDownEvent.keyTranslated = false
+    return keyDownEvent
 
   # copy from atom-keymap/helpers.coffee
   charCodeFromKeyIdentifier: (keyIdentifier) ->
@@ -53,37 +54,6 @@ class KeyMapper
 
   charCodeToKeyIdentifier: (charCode) ->
     return 'U+' + @padZero(charCode.toString(16).toUpperCase(), 4)
-
-  fireKeydownEvent: (keyDownEvent) ->
-    bubbles = keyDownEvent.bubbles
-    cancelable = keyDownEvent.cancelable
-    view = keyDownEvent.view
-    keyIdentifier = keyDownEvent.keyIdentifier
-    location = keyDownEvent.location
-    ctrl = keyDownEvent.ctrlKey
-    alt = keyDownEvent.altKey
-    shift = keyDownEvent.shiftKey
-    cmd = keyDownEvent.metaKey
-
-    event = document.createEvent('KeyboardEvent')
-    event.initKeyboardEvent(
-      'keydown',
-      bubbles,
-      cancelable,
-      view,
-      keyIdentifier,
-      location,
-      ctrl,
-      alt,
-      shift,
-      cmd
-    )
-    Object.defineProperty(event, 'target', get: -> keyDownEvent.target)
-    Object.defineProperty(event, 'path', get: -> keyDownEvent.path)
-    Object.defineProperty(event, 'keyCode', get: -> keyDownEvent.keyCode)
-    Object.defineProperty(event, 'which', get: -> keyDownEvent.keyCode)
-    keyDownEvent.target.dispatchEvent( event )
-    console.log 'fireKeydownEvent', event
 
   translateKeyBinding: (keyDownEvent) ->
     identifier = @charCodeFromKeyIdentifier(keyDownEvent.keyIdentifier)
@@ -104,15 +74,18 @@ class KeyMapper
       keyDownEvent.keyIdentifier = @charCodeToKeyIdentifier(charCode)
       keyDownEvent.keyCode = charCode
       keyDownEvent.which = charCode
-      @keyTranslated = true
+      keyDownEvent.keyTranslated = true
 
   remap: (event) ->
-    # @keyTranslated = false
-    newKeyDownEvent = @createNewKeyDownEvent(event)
-    @translateKeyBinding(newKeyDownEvent)
+    @newKeyDownEvent = @createNewKeyDownEvent(event)
+    @translateKeyBinding(@newKeyDownEvent)
+    return @newKeyDownEvent
 
-    # if @keyTranslated
-      # event.preventDefault()
-      # @fireKeydownEvent(newKeyDownEvent)
-
-    return newKeyDownEvent
+  didFailToMatchBinding: (event) ->
+    if @newKeyDownEvent.keyTranslated
+      editor = atom.workspace.getActiveEditor()
+      editorElement = atom.views.getView(editor)
+      if editor && editorElement && editorElement.hasFocus()
+        key = String.fromCharCode(@newKeyDownEvent.which)
+        editor.insertText(key)
+        event.preventDefault()

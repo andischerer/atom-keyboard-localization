@@ -1,8 +1,8 @@
 # Keyboard localization package for non US-Keyboard Layouts
 This is a compatibility package for atom text editor which tries to remap keycodes for your given keyboard layout.
-This package tries to fill the gap till [this issue](https://github.com/atom/atom-keymap/issues/37) is fixed.
 
 ## Whats working
+* Prevent default keybindings from being fired
 * Keybindings in your foreign keyboard layout
 * AltGr-Key (works for me on german layout)
 * vim-mode keybindings
@@ -26,6 +26,13 @@ Then set the package setting `UseKeyboardLayoutFromPath` to your given filename(
 * add more foreign Keyboard-Layouts
 * write tests
 * ~~add custom path for keymap file~~
+
+## This package tries to fill the gap till the following issues are fixed
+* [Issue 263724: KeyboardEvent does not match the latest specification](https://code.google.com/p/chromium/issues/detail?id=263724)
+* [Issue 300475: Issues with non US keyboard layout keyboard events or editing](https://code.google.com/p/chromium/issues/detail?id=300475)
+* [Issue 168971: Implement 'locale' attribute in KeyboardEvent](https://code.google.com/p/chromium/issues/detail?id=168971)
+* [Atom Issue 35: Right ALT not supported (bad for International Keyboards)](https://github.com/atom/atom-keymap/issues/35)
+* [Atom Issue 37: Foreign keyboard layouts not working](https://github.com/atom/atom-keymap/issues/37)
 
 ## Credits
 All thanks go to original author -> [DavidBadura](https://github.com/DavidBadura)

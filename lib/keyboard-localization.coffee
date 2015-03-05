@@ -26,12 +26,16 @@ module.exports =
     if atom
       # create Translator
       @keyMapper = new KeyMapper()
-      atom.config.onDidChange [@pkg,'useKeyboardLayout'].join('.'), () =>
-        if @keyMapper?
-          @keyMapper.loadTranslationTable()
-      atom.config.onDidChange [@pkg,'useKeyboardLayoutFromPath'].join('.'), () =>
-        if @keyMapper?
-          @keyMapper.loadTranslationTable()
+
+      #config changes
+      @changeUseKeyboardLayout = atom.config.onDidChange [@pkg,'useKeyboardLayout'].join('.'), () =>
+        @keyMapper.loadTranslationTable()
+      @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg,'useKeyboardLayoutFromPath'].join('.'), () =>
+        @keyMapper.loadTranslationTable()
+
+      # KeymapManager no-binding found subscription
+      @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
+        @keyMapper.didFailToMatchBinding(event)
 
       @keystrokeForKeyboardEventCb = atom.keymaps.keystrokeForKeyboardEvent
       # Hijack KeymapManager
@@ -43,6 +47,9 @@ module.exports =
     if atom
       atom.keymaps.keystrokeForKeyboardEvent = @keystrokeForKeyboardEventCb
       @keystrokeForKeyboardEventCb = null
+      @changeUseKeyboardLayout.dispose()
+      @changeUseKeyboardLayoutFromPath.dispose()
+      @didFailToMatchBinding.dispose()
       @keyMapper = null
 
   keyDown: (event, cb) ->
