@@ -1,3 +1,13 @@
+## v1.1.5
+* added danish keyboard layout
+* added norwegian keyboard layout
+* added swedish keyboard layout
+* added hungarian keyboard layout
+* added romanian keyboard layout
+* added slovenian keyboard layout
+* added italian keyboard layout
+* added portuguese keyboard layout
+
 ## v1.1.4
 * Bugfix: Issue #7 prevent default keybindings from being fired
 

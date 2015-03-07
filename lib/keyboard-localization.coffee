@@ -10,11 +10,19 @@ module.exports =
       type: 'string'
       default: 'de_DE'
       enum: [
-        'de_DE'
+        'da_DK'
         'de_DE-neo'
+        'de_DE'
         'es_ES'
         'fr_FR'
+        'hu_HU'
+        'it_IT'
+        'nb_NO'
         'pl_PL'
+        'pt_PT'
+        'ro_RO'
+        'sl_SL'
+        'sv_SE'
       ]
       description: 'Pick your locale'
     useKeyboardLayoutFromPath:
