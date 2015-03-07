@@ -36,9 +36,9 @@ Then set the package setting `UseKeyboardLayoutFromPath` to your given filename(
 * ~~add custom path for keymap file~~
 
 ## This package tries to fill the gap till the following issues are fixed
-* [Issue 263724: KeyboardEvent does not match the latest specification](https://code.google.com/p/chromium/issues/detail?id=263724)
-* [Issue 300475: Issues with non US keyboard layout keyboard events or editing](https://code.google.com/p/chromium/issues/detail?id=300475)
-* [Issue 168971: Implement 'locale' attribute in KeyboardEvent](https://code.google.com/p/chromium/issues/detail?id=168971)
+* [Chromium Issue 263724: KeyboardEvent does not match the latest specification](https://code.google.com/p/chromium/issues/detail?id=263724)
+* [Chromium Issue 300475: Issues with non US keyboard layout keyboard events or editing](https://code.google.com/p/chromium/issues/detail?id=300475)
+* [Chromium Issue 168971: Implement 'locale' attribute in KeyboardEvent](https://code.google.com/p/chromium/issues/detail?id=168971)
 * [Atom Issue 35: Right ALT not supported (bad for International Keyboards)](https://github.com/atom/atom-keymap/issues/35)
 * [Atom Issue 37: Foreign keyboard layouts not working](https://github.com/atom/atom-keymap/issues/37)
 
