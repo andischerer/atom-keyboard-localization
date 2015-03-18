@@ -1,3 +1,6 @@
+## v1.1.6
+* fixed the ">" character issue in fr_FR layout
+
 ## v1.1.5
 * added danish keyboard layout
 * added norwegian keyboard layout

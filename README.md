@@ -12,7 +12,7 @@ This is a compatibility package for atom text editor which tries to remap keycod
 * [German 105-key "QWERTZ"](http://en.wikipedia.org/wiki/File:KB_Germany.svg) (`de_DE`)
 * [German Neo-Layout](http://www.neo-layout.org/) (`de_DE-neo`) - thx [ScreenDriver](https://github.com/ScreenDriver)
 * [Spanish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_spanish.gif) (`es_ES`) - untested
-* [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`) - untested
+* [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
 * [Polish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_polish.gif) (`pl_PL`) - untested
 * [Danish](http://fontmeme.com/images/danish-keyboard-550x183.png) (`da_DK`) - untested
 * [Norwegian](http://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/KB_Norway.svg/2000px-KB_Norway.svg.png) (`nb_NO`) - untested
