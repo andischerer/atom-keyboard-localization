@@ -14,6 +14,7 @@ module.exports =
         'de_DE-neo'
         'de_DE'
         'es_ES'
+        'fr_BE'
         'fr_FR'
         'hu_HU'
         'it_IT'
