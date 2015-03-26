@@ -22,6 +22,7 @@ This is a compatibility package for atom text editor which tries to remap keycod
 * [Slovenian](http://smotko.si/assets/pics/keyboard.png) (`sl_SL`) - untested
 * [Italian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_italian.gif) (`it_IT`) - untested
 * [Portuguese](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_portug.gif) (`pt_PT`) - untested
+* [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
 
 Feel free to send me Issues/PRs so i can add more keymaps.
 
