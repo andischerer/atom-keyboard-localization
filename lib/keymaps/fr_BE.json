@@ -1,40 +1,26 @@
 {
     "48": {
-        "unshifted": 224,
         "alted": 125
     },
     "49": {
-        "unshifted": 38,
         "alted": 124
     },
     "50": {
-        "unshifted": 233,
         "alted": 64
     },
     "51": {
-        "unshifted": 34,
         "alted": 35
     },
     "52": {
-        "unshifted": 39,
         "alted": 123
     },
     "53": {
-        "unshifted": 40,
         "alted": 91
     },
     "54": {
-        "unshifted": 167,
         "alted": 94
     },
-    "55": {
-        "unshifted": 232
-    },
-    "56": {
-        "unshifted": 33
-    },
     "57": {
-        "unshifted": 231,
         "alted": 123
     },
     "186": {
@@ -51,7 +37,8 @@
     },
     "189": {
         "unshifted": 45,
-        "shifted": 95
+        "shifted": 95,
+        "alted": 0
     },
     "190": {
         "shifted": 46,
