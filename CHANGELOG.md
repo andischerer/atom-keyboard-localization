@@ -1,3 +1,7 @@
+## v1.1.7
+* added fr_BE keyoard layout - thx [filoozom](https://github.com/filoozom)
+* fixed: accent marks should not get doubled (e.g `^` key on german-layout)
+
 ## v1.1.6
 * fixed the ">" character issue in fr_FR layout
 
@@ -22,7 +26,7 @@
 * config: choose a locale or use a custom path
 
 ## v1.1.2:
-* added German Neo-Layout
+* added German Neo-Layout - thx [ScreenDriver](https://github.com/ScreenDriver)
 
 ## v1.1.1:
 * fixed wrong translation table path in config #4
