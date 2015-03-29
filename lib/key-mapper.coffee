@@ -75,7 +75,7 @@ class KeyMapper
       keyDownEvent.keyCode = charCode
       keyDownEvent.which = charCode
       keyDownEvent.keyTranslated = true
-      keyDownEvent.decorator = (translation.decorator?) ? true : false
+      keyDownEvent.accent = (translation.accent?) ? true : false
 
   remap: (event) ->
     @newKeyDownEvent = @createNewKeyDownEvent(event)
@@ -86,8 +86,8 @@ class KeyMapper
     if @newKeyDownEvent.keyTranslated
       editor = atom.workspace.getActiveEditor()
       editorElement = atom.views.getView(editor)
-      decoratorKey = (@newKeyDownEvent.decorator? && @newKeyDownEvent.decorator == true) ? true : false
-      if editor && editorElement && editorElement.hasFocus() && !decoratorKey
+      accent = (@newKeyDownEvent.accent? && @newKeyDownEvent.accent == true) ? true : false
+      if editor && editorElement && editorElement.hasFocus() && !accent
         key = String.fromCharCode(@newKeyDownEvent.which)
         editor.insertText(key)
         event.preventDefault()

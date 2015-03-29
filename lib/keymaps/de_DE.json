@@ -81,12 +81,12 @@
     "220": {
         "unshifted": 94,
         "shifted": 176,
-        "decorator": true
+        "accent": true
     },
     "221": {
         "unshifted": 180,
         "shifted": 96,
-        "decorator": true
+        "accent": true
     },
     "222": {
         "unshifted": 228,
