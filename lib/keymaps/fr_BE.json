@@ -1,35 +1,64 @@
 {
     "48": {
+        "unshifted": 224,
+        "shifted": 48,
         "alted": 125
     },
     "49": {
+        "unshifted": 38,
+        "shifted": 49,
         "alted": 124
     },
     "50": {
+        "unshifted": 233,
+        "shifted": 50,
         "alted": 64
     },
     "51": {
+        "unshifted": 34,
+        "shifted": 51,
         "alted": 35
     },
     "52": {
+        "unshifted": 39,
+        "shifted": 52,
         "alted": 123
     },
     "53": {
+        "unshifted": 40,
+        "shifted": 53,
         "alted": 91
     },
     "54": {
+        "unshifted": 167,
+        "shifted": 54,
         "alted": 94
     },
+    "55": {
+        "unshifted": 232,
+        "shifted": 55
+    },
+    "56": {
+        "unshifted": 33,
+        "shifted": 56
+    },
     "57": {
+        "unshifted": 231,
+        "shifted": 57,
         "alted": 123
+    },
+    "69": {
+        "alted": 8364
     },
     "186": {
         "unshifted": 36,
-        "shifted": 42
+        "shifted": 42,
+        "alted": 93
     },
     "187": {
         "unshifted": 61,
-        "shifted": 43
+        "shifted": 43,
+        "alted": 126
     },
     "188": {
         "unshifted": 44,
@@ -37,19 +66,20 @@
     },
     "189": {
         "unshifted": 45,
-        "shifted": 95,
-        "alted": 0
+        "shifted": 95
     },
     "190": {
-        "shifted": 46,
-        "unshifted": 59
+        "unshifted": 59,
+        "shifted": 46
     },
     "191": {
         "unshifted": 58,
         "shifted": 47
     },
     "192": {
-        "shifted": 37
+        "unshifted": 249,
+        "shifted": 37,
+        "alted": 180
     },
     "219": {
         "unshifted": 41,
@@ -57,13 +87,22 @@
     },
     "220": {
         "unshifted": 181,
-        "shifted": 163
+        "shifted": 163,
+        "alted": 96
+    },
+    "221": {
+        "unshifted": 94,
+        "shifted": 168,
+        "alted": 91,
+        "decorator": true
     },
     "222": {
         "unshifted": 178,
         "shifted": 179
     },
     "226": {
-        "shifted": 62
+        "unshifted": 60,
+        "shifted": 62,
+        "alted": 92
     }
 }
