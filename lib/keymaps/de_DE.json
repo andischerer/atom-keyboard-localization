@@ -80,11 +80,13 @@
     },
     "220": {
         "unshifted": 94,
-        "shifted": 176
+        "shifted": 176,
+        "decorator": true
     },
     "221": {
         "unshifted": 180,
-        "shifted": 96
+        "shifted": 96,
+        "decorator": true
     },
     "222": {
         "unshifted": 228,

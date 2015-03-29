@@ -118,14 +118,14 @@
             }
 
             document.addEventListener('keydown', function(e) {
-                key = cloneKey(e);
+                var key = cloneKey(e);
                 down.innerText = printKey(key);
                 lastDown = key;
                 lastPress = null;
             }, false);
 
             document.addEventListener('keypress', function(e) {
-                key = cloneKey(e);
+                var key = cloneKey(e);
                 press.innerText = printKey(key);
                 lastPress = key;
             }, false);

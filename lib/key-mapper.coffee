@@ -15,7 +15,7 @@ class KeyMapper
     @translationTable = null
 
   loadTranslationTable: ->
-    useKeyboardLayout = atom.config.get([@pkg,'useKeyboardLayout'].join('.'))
+    useKeyboardLayout = atom.config.get([@pkg, 'useKeyboardLayout'].join('.'))
     if useKeyboardLayout?
       pathToTransTable = path.join(
         __dirname,
@@ -23,7 +23,7 @@ class KeyMapper
         useKeyboardLayout + '.json'
       )
 
-    useKeyboardLayoutFromPath = atom.config.get([@pkg,'useKeyboardLayoutFromPath'].join('.'))
+    useKeyboardLayoutFromPath = atom.config.get([@pkg, 'useKeyboardLayoutFromPath'].join('.'))
     if useKeyboardLayoutFromPath?
       customPath = path.normalize(useKeyboardLayoutFromPath)
       if fs.isFileSync(customPath)
@@ -75,6 +75,7 @@ class KeyMapper
       keyDownEvent.keyCode = charCode
       keyDownEvent.which = charCode
       keyDownEvent.keyTranslated = true
+      keyDownEvent.decorator = (translation.decorator?) ? true : false
 
   remap: (event) ->
     @newKeyDownEvent = @createNewKeyDownEvent(event)
@@ -85,7 +86,8 @@ class KeyMapper
     if @newKeyDownEvent.keyTranslated
       editor = atom.workspace.getActiveEditor()
       editorElement = atom.views.getView(editor)
-      if editor && editorElement && editorElement.hasFocus()
+      decoratorKey = (@newKeyDownEvent.decorator? && @newKeyDownEvent.decorator == true) ? true : false
+      if editor && editorElement && editorElement.hasFocus() && !decoratorKey
         key = String.fromCharCode(@newKeyDownEvent.which)
         editor.insertText(key)
         event.preventDefault()
