@@ -16,6 +16,7 @@ module.exports =
         'es_ES'
         'fr_BE'
         'fr_FR'
+        'fr_CA'
         'hu_HU'
         'it_IT'
         'nb_NO'
