@@ -1,3 +1,6 @@
+## v1.1.8
+* added fr_CA keyboard layout - thx [sportebois](https://github.com/sportebois)
+
 ## v1.1.7
 * added fr_BE keyoard layout - thx [filoozom](https://github.com/filoozom)
 * fixed: accent marks should not get doubled (e.g `^` key on german-layout)

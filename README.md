@@ -13,16 +13,18 @@ This is a compatibility package for atom text editor which tries to remap keycod
 * [German Neo-Layout](http://www.neo-layout.org/) (`de_DE-neo`)
 * [Spanish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_spanish.gif) (`es_ES`) - untested
 * [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
+* [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
+* [Canadian French](http://i.stack.imgur.com/ryQxs.png) (`fr_CA`)
 * [Polish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_polish.gif) (`pl_PL`) - untested
 * [Danish](http://fontmeme.com/images/danish-keyboard-550x183.png) (`da_DK`) - untested
 * [Norwegian](http://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/KB_Norway.svg/2000px-KB_Norway.svg.png) (`nb_NO`) - untested
-* [Swedish](http://frontype.com/keyboarding/540px-Computer-keyboard-Sweden.svg.png) (`sv-SE`) - untested
+* [Swedish](http://frontype.com/keyboarding/540px-Computer-keyboard-Sweden.svg.png) (`sv_SE`) - untested
 * [Hungarian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_hungary.gif) (`hu_HU`) - untested
 * [Romanian](http://upload.wikimedia.org/wikipedia/commons/f/f0/Romanian-keyboard-layout.png) (`ro_RO`) - untested
 * [Slovenian](http://smotko.si/assets/pics/keyboard.png) (`sl_SL`) - untested
 * [Italian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_italian.gif) (`it_IT`) - untested
 * [Portuguese](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_portug.gif) (`pt_PT`) - untested
-* [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
+
 
 Feel free to send me Issues/PRs so i can add more keymaps.
 
