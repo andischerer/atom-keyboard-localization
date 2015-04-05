@@ -1,41 +1,51 @@
 {
     "48": {
         "unshifted": 224,
+        "shifted": 48,
         "alted": 64
     },
     "49": {
-        "unshifted": 38
+        "unshifted": 38,
+        "shifted": 49
     },
     "50": {
         "unshifted": 233,
+        "shifted": 50,
         "alted": 126
     },
     "51": {
         "unshifted": 34,
+        "shifted": 51,
         "alted": 35
     },
     "52": {
         "unshifted": 39,
+        "shifted": 52,
         "alted": 123
     },
     "53": {
         "unshifted": 40,
+        "shifted": 53,
         "alted": 91
     },
     "54": {
         "unshifted": 45,
+        "shifted": 54,
         "alted": 124
     },
     "55": {
         "unshifted": 232,
+        "shifted": 55,
         "alted": 96
     },
     "56": {
         "unshifted": 95,
+        "shifted": 56,
         "alted": 92
     },
     "57": {
         "unshifted": 231,
+        "shifted": 57,
         "alted": 94
     },
     "186": {
@@ -75,7 +85,8 @@
     },
     "221": {
         "unshifted": 94,
-        "shifted": 168
+        "shifted": 168,
+        "accent": true
     },
     "222": {
         "unshifted": 178
