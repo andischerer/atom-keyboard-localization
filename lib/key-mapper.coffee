@@ -1,18 +1,19 @@
 path = require('path')
 fs = require('fs-plus')
-util = require('util')
 
 module.exports =
 class KeyMapper
   pkg: 'keyboard-localization'
   translationTable: null
-  newKeyDownEvent: null
+  keyDownEvent: null
+  modifierStateHandler: null
 
   constructor: ->
     @loadTranslationTable()
 
   destroy: ->
     @translationTable = null
+    @modifierStateHandler = null
 
   loadTranslationTable: ->
     useKeyboardLayout = atom.config.get([@pkg, 'useKeyboardLayout'].join('.'))
@@ -36,12 +37,8 @@ class KeyMapper
     else
       console.log(@pkg, 'Error loading keymap "' + pathToTransTable + '"')
 
-  createNewKeyDownEvent: (event) ->
-    keyDownEvent = util._extend({} , event)
-    keyDownEvent.currentTarget = null
-    keyDownEvent.eventPhase = 0
-    keyDownEvent.keyTranslated = false
-    return keyDownEvent
+  setModifierStateHandler: (modifierStateHandler) ->
+    @modifierStateHandler = modifierStateHandler
 
   # copy from atom-keymap/helpers.coffee
   charCodeFromKeyIdentifier: (keyIdentifier) ->
@@ -58,12 +55,12 @@ class KeyMapper
   translateKeyBinding: (keyDownEvent) ->
     identifier = @charCodeFromKeyIdentifier(keyDownEvent.keyIdentifier)
     charCode = null
-    if @translationTable? && identifier? && @translationTable[identifier]?
+    if @translationTable? && identifier? && @translationTable[identifier]? && @modifierStateHandler?
       if translation = @translationTable[identifier]
-        if keyDownEvent.shiftKey && translation.shifted?
+        if @modifierStateHandler.isShift() && translation.shifted?
           charCode = translation.shifted
           keyDownEvent.shiftKey = false
-        else if keyDownEvent.altKey && translation.alted?
+        else if @modifierStateHandler.isAltGr() && translation.alted?
           charCode = translation.alted
           keyDownEvent.altKey = false
           keyDownEvent.ctrlKey = false
@@ -77,17 +74,17 @@ class KeyMapper
       keyDownEvent.keyTranslated = true
       keyDownEvent.accent = (translation.accent?) ? true : false
 
+    return keyDownEvent
+
   remap: (event) ->
-    @newKeyDownEvent = @createNewKeyDownEvent(event)
-    @translateKeyBinding(@newKeyDownEvent)
-    return @newKeyDownEvent
+    @keyDownEvent = @translateKeyBinding(event)
 
   didFailToMatchBinding: (event) ->
-    if @newKeyDownEvent.keyTranslated
+    if @keyDownEvent.keyTranslated
       editor = atom.workspace.getActiveEditor()
       editorElement = atom.views.getView(editor)
-      accent = (@newKeyDownEvent.accent? && @newKeyDownEvent.accent == true) ? true : false
+      accent = (@keyDownEvent.accent? && @keyDownEvent.accent == true) ? true : false
       if editor && editorElement && editorElement.hasFocus() && !accent
-        key = String.fromCharCode(@newKeyDownEvent.which)
+        key = String.fromCharCode(@keyDownEvent.which)
         editor.insertText(key)
         event.preventDefault()

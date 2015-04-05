@@ -1,9 +1,12 @@
+util = require('util')
 KeyMapper = require './key-mapper'
+ModifierStateHandler = require './modifier-state-handler'
 
 module.exports =
   pkg: 'keyboard-localization'
   keystrokeForKeyboardEventCb: null
   keyMapper: null
+  modifierStateHandler: null
 
   config:
     useKeyboardLayout:
@@ -34,34 +37,57 @@ module.exports =
 
   activate: (state) ->
     if atom
-      # create Translator
       @keyMapper = new KeyMapper()
+      @modifierStateHandler = new ModifierStateHandler()
 
-      #config changes
-      @changeUseKeyboardLayout = atom.config.onDidChange [@pkg,'useKeyboardLayout'].join('.'), () =>
+      @keyMapper.setModifierStateHandler(@modifierStateHandler)
+
+      # listen for config changes
+      @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
         @keyMapper.loadTranslationTable()
-      @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg,'useKeyboardLayoutFromPath'].join('.'), () =>
+      @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg, 'useKeyboardLayoutFromPath'].join('.'), () =>
         @keyMapper.loadTranslationTable()
 
-      # KeymapManager no-binding found subscription
+      # KeymapManager no-binding-found subscription
       @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
         @keyMapper.didFailToMatchBinding(event)
 
-      @keystrokeForKeyboardEventCb = atom.keymaps.keystrokeForKeyboardEvent
+      # Keyup-Event for ModifierStateHandler
+      document.addEventListener 'keyup', (event) =>
+        @onKeyUp(event)
+
       # Hijack KeymapManager
       # @TODO: Evil hack. Find an better way ...
+      @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
       atom.keymaps.keystrokeForKeyboardEvent = (event) =>
-        @keyDown event
+        @onKeyDown event
 
   deactivate: ->
     if atom
-      atom.keymaps.keystrokeForKeyboardEvent = @keystrokeForKeyboardEventCb
-      @keystrokeForKeyboardEventCb = null
+      atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
+      @orginalKeydownEvent = null
+
+      document.removeEventListener 'keyup', @onKeyUp
+
       @changeUseKeyboardLayout.dispose()
       @changeUseKeyboardLayoutFromPath.dispose()
       @didFailToMatchBinding.dispose()
+
+      @modifierStateHandler = null
       @keyMapper = null
 
-  keyDown: (event, cb) ->
-    newKeyEvent = @keyMapper.remap(event)
-    return @keystrokeForKeyboardEventCb(newKeyEvent)
+  createNewKeyDownEvent: (event) ->
+    keyDownEvent = util._extend({} , event)
+    keyDownEvent.currentTarget = null
+    keyDownEvent.eventPhase = 0
+    keyDownEvent.keyTranslated = false
+    return keyDownEvent
+
+  onKeyDown: (event, cb) ->
+    newKeyEvent = @createNewKeyDownEvent(event)
+    @modifierStateHandler.onKeyDown(newKeyEvent)
+    @keyMapper.remap(newKeyEvent)
+    return @orginalKeydownEvent(newKeyEvent)
+
+  onKeyUp: (event) ->
+    @modifierStateHandler.onKeyUp(event)
