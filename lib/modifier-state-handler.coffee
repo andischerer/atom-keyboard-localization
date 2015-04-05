@@ -16,7 +16,9 @@ class ModifierState
       'Alt'
       'U+00A4'
       'U+00A5'
-      'U+00E1'
+    ]
+    altgr: [
+      'U+00E1' # linux altgr identifier
     ]
 
   constructor: ->
