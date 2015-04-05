@@ -10,5 +10,25 @@
   },
   "dependencies": {
     "fs-plus": "^2.0.4"
+  },
+  "keywords": [
+    "keyboard",
+    "localization",
+    "keybinding",
+    "locale",
+    "compatibility"
+  ],
+  "coffeelintConfig": {
+    "indentation": {
+      "level" : "error",
+      "value" : 2
+    },
+    "line_endings": {
+      "value" : "unix",
+      "level" : "error"
+    },
+    "max_line_length": {
+      "level": "ignore"
+    }
   }
 }
