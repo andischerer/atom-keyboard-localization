@@ -81,7 +81,7 @@ class KeyMapper
 
   didFailToMatchBinding: (event) ->
     if @keyDownEvent.keyTranslated
-      editor = atom.workspace.getActiveEditor()
+      editor = atom.workspace.getActiveTextEditor()
       editorElement = atom.views.getView(editor)
       accent = (@keyDownEvent.accent? && @keyDownEvent.accent == true) ? true : false
       if editor && editorElement && editorElement.hasFocus() && !accent
