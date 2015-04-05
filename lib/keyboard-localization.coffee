@@ -7,6 +7,7 @@ module.exports =
   keystrokeForKeyboardEventCb: null
   keyMapper: null
   modifierStateHandler: null
+  keyUpEventListener: null
 
   config:
     useKeyboardLayout:
@@ -53,8 +54,9 @@ module.exports =
         @keyMapper.didFailToMatchBinding(event)
 
       # Keyup-Event for ModifierStateHandler
-      document.addEventListener 'keyup', (event) =>
+      @keyUpEventListener = (event) =>
         @onKeyUp(event)
+      document.addEventListener 'keyup', @keyUpEventListener
 
       # Hijack KeymapManager
       # @TODO: Evil hack. Find an better way ...
@@ -67,7 +69,7 @@ module.exports =
       atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
       @orginalKeydownEvent = null
 
-      document.removeEventListener 'keyup', @onKeyUp
+      document.removeEventListener 'keyup', @keyUpEventListener
 
       @changeUseKeyboardLayout.dispose()
       @changeUseKeyboardLayoutFromPath.dispose()
