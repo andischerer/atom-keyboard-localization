@@ -1,5 +1,8 @@
-## v1.1.8
+## v1.2.0
 * added fr_CA keyboard layout - thx [sportebois](https://github.com/sportebois)
+* improved modifier handling
+* fixed deprecation call
+* fixed number row on "fr_FR" layout
 
 ## v1.1.7
 * added fr_BE keyoard layout - thx [filoozom](https://github.com/filoozom)
