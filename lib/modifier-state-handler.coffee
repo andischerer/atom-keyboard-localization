@@ -1,6 +1,8 @@
 module.exports =
 class ModifierState
-  stack: {}
+  currentModifierState: {}
+  keyEventQueueWorker: null
+  keyEventQueue: []
   modifiers:
     shift: [
       'Shift'
@@ -22,7 +24,23 @@ class ModifierState
     ]
 
   constructor: ->
-    @stack = {}
+    @currentModifierState = {}
+    # @TODO: Use Task(https://atom.io/docs/api/v0.189.0/Task) for keyEventQueue processing
+    @keyEventQueueWorker = setInterval((=>
+      @processKeyEventQueue()
+    ), 0)
+
+  destroy: ->
+    clearInterval(@keyEventQueueWorker)
+    @keyEventQueueWorker = null
+
+  processKeyEventQueue: () ->
+    keyEvent = @keyEventQueue.shift()
+    if keyEvent?
+      if keyEvent.type == 'keydown'
+        @addModifier(keyEvent)
+      if keyEvent.type == 'keyup'
+        @removeModifier(keyEvent)
 
   isModifier: (identifier) ->
     for key of @modifiers
@@ -31,41 +49,41 @@ class ModifierState
     false
 
   addModifier: (keyEvent) ->
-    stackIdentifier = @isModifier(keyEvent.keyIdentifier)
-    if stackIdentifier
-      @stack[stackIdentifier] = keyEvent
+    identifier = @isModifier(keyEvent.keyIdentifier)
+    if identifier
+      @currentModifierState[identifier] = keyEvent
 
   removeModifier: (keyEvent) ->
-    stackIdentifier = @isModifier(keyEvent.keyIdentifier)
-    if stackIdentifier
-      delete @stack[stackIdentifier]
+    identifier = @isModifier(keyEvent.keyIdentifier)
+    if identifier
+      delete @currentModifierState[identifier]
 
   isShift: ->
-    return @stack.hasOwnProperty 'shift'
+    return @currentModifierState.hasOwnProperty 'shift'
 
   isAlt: ->
     if process.platform == 'win32'
-      return @stack.hasOwnProperty('alt') and @stack.alt.keyLocation != 2
+      return @currentModifierState.hasOwnProperty('alt') and @currentModifierState.alt.keyLocation != 2
     else
-      return @stack.hasOwnProperty('alt')
+      return @currentModifierState.hasOwnProperty('alt')
 
   isAltGr: ->
     if process.platform == 'win32'
-      return @stack.hasOwnProperty('alt') and @stack.alt.keyLocation == 2
+      return @currentModifierState.hasOwnProperty('alt') and @currentModifierState.alt.keyLocation == 2
     else
-      return @stack.hasOwnProperty('altgr')
+      return @currentModifierState.hasOwnProperty('altgr')
 
   isCtrl: ->
     if process.platform == 'win32'
-      return @stack.hasOwnProperty('ctrl') and !@isAltGr()
+      return @currentModifierState.hasOwnProperty('ctrl') and !@isAltGr()
     else
-      @stack.hasOwnProperty('ctrl')
+      @currentModifierState.hasOwnProperty('ctrl')
 
   onKeyDown: (keyEvent) ->
-    @addModifier(keyEvent)
+    @keyEventQueue.push(keyEvent)
 
   onKeyUp: (keyEvent) ->
-    @removeModifier(keyEvent)
+    @keyEventQueue.push(keyEvent)
 
   logModifiers: ->
     mods =
@@ -73,4 +91,4 @@ class ModifierState
       alt: @isAlt()
       altgr: @isAltGr()
       ctrl: @isCtrl()
-    console.log(JSON.stringify(mods))
+    return JSON.stringify(mods)
