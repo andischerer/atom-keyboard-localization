@@ -58,6 +58,10 @@ class ModifierState
     if identifier
       delete @currentModifierState[identifier]
 
+  clearModifierState: () ->
+    @keyEventQueue = []
+    @currentModifierState = []
+
   isShift: ->
     return @currentModifierState.hasOwnProperty 'shift'
 

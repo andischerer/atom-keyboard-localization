@@ -8,6 +8,7 @@ module.exports =
   keyMapper: null
   modifierStateHandler: null
   keyUpEventListener: null
+  clearModifierStateListener: null
 
   config:
     useKeyboardLayout:
@@ -53,6 +54,12 @@ module.exports =
       @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
         @keyMapper.didFailToMatchBinding(event)
 
+      # clear modifiers on blur and focus
+      @clearModifierStateListener = () =>
+        @modifierStateHandler.clearModifierState()
+      window.addEventListener 'blur', @clearModifierStateListener
+      window.addEventListener 'focus', @clearModifierStateListener
+
       # Keyup-Event for ModifierStateHandler
       @keyUpEventListener = (event) =>
         @onKeyUp(event)
@@ -70,6 +77,9 @@ module.exports =
       @orginalKeydownEvent = null
 
       document.removeEventListener 'keyup', @keyUpEventListener
+
+      window.removeEventListener 'blur', @clearModifierStateListener
+      window.removeEventListener 'focus', @clearModifierStateListener
 
       @changeUseKeyboardLayout.dispose()
       @changeUseKeyboardLayoutFromPath.dispose()
