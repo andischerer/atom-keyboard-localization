@@ -6,7 +6,8 @@
     },
     "49": {
         "unshifted": 38,
-        "shifted": 49
+        "shifted": 49,
+        "alted": 185
     },
     "50": {
         "unshifted": 233,
@@ -80,8 +81,9 @@
         "alted": 93
     },
     "220": {
-        "unshifted": 42,
-        "shifted": 181
+        "unshifted": 60,
+        "shifted": 62,
+        "alted": 124
     },
     "221": {
         "unshifted": 94,
@@ -89,7 +91,9 @@
         "accent": true
     },
     "222": {
-        "unshifted": 178
+        "unshifted": 178,
+        "shifted": 126,
+        "alted": 172
     },
     "223": {
         "unshifted": 33,
