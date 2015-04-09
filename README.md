@@ -22,7 +22,7 @@ This is a compatibility package for atom text editor which tries to remap keycod
 * [Hungarian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_hungary.gif) (`hu_HU`) - untested
 * [Romanian](http://upload.wikimedia.org/wikipedia/commons/f/f0/Romanian-keyboard-layout.png) (`ro_RO`) - untested
 * [Slovenian](http://smotko.si/assets/pics/keyboard.png) (`sl_SL`) - untested
-* [Italian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_italian.gif) (`it_IT`) - untested
+* [Italian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_italian.gif) (`it_IT`)
 * [Portuguese](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_portug.gif) (`pt_PT`) - untested
 
 
