@@ -11,7 +11,7 @@ This is a compatibility package for atom text editor which tries to remap keycod
 ## Supported Keyboard Layouts atm
 * [German 105-key "QWERTZ"](http://en.wikipedia.org/wiki/File:KB_Germany.svg) (`de_DE`)
 * [German Neo-Layout](http://www.neo-layout.org/) (`de_DE-neo`)
-* [Spanish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_spanish.gif) (`es_ES`) - untested
+* [Spanish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_spanish.gif) (`es_ES`)
 * [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
 * [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
 * [Canadian French](http://i.stack.imgur.com/ryQxs.png) (`fr_CA`)

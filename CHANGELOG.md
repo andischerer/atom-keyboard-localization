@@ -1,3 +1,8 @@
+## v1.2.1
+* Complete it_IT layout
+* partially fix fr_FR layout
+* partially fix for es_ES layout
+
 ## v1.2.0
 * added fr_CA keyboard layout - thx [sportebois](https://github.com/sportebois)
 * improved modifier handling
