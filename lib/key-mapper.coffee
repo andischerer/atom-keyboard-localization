@@ -1,6 +1,3 @@
-path = require('path')
-fs = require('fs-plus')
-
 module.exports =
 class KeyMapper
   pkg: 'keyboard-localization'
@@ -8,34 +5,12 @@ class KeyMapper
   keyDownEvent: null
   modifierStateHandler: null
 
-  constructor: ->
-    @loadTranslationTable()
-
   destroy: ->
     @translationTable = null
     @modifierStateHandler = null
 
-  loadTranslationTable: ->
-    useKeyboardLayout = atom.config.get([@pkg, 'useKeyboardLayout'].join('.'))
-    if useKeyboardLayout?
-      pathToTransTable = path.join(
-        __dirname,
-        'keymaps',
-        useKeyboardLayout + '.json'
-      )
-
-    useKeyboardLayoutFromPath = atom.config.get([@pkg, 'useKeyboardLayoutFromPath'].join('.'))
-    if useKeyboardLayoutFromPath?
-      customPath = path.normalize(useKeyboardLayoutFromPath)
-      if fs.isFileSync(customPath)
-        pathToTransTable = customPath
-
-    if fs.isFileSync(pathToTransTable)
-      tansTableContentJson = fs.readFileSync(pathToTransTable, 'utf8')
-      @translationTable = JSON.parse(tansTableContentJson)
-      console.log(@pkg, 'Keymap loaded "' + pathToTransTable + '"')
-    else
-      console.log(@pkg, 'Error loading keymap "' + pathToTransTable + '"')
+  setKeymap: (keymap) ->
+    @translationTable = keymap
 
   setModifierStateHandler: (modifierStateHandler) ->
     @modifierStateHandler = modifierStateHandler
