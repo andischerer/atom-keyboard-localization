@@ -22,10 +22,15 @@ class KeyMapper
     charCode = null
     if @translationTable? && identifier? && @translationTable[identifier]? && @modifierStateHandler?
       if translation = @translationTable[identifier]
-        if @modifierStateHandler.isShift() && translation.shifted?
+        if translation.altshifted? && @modifierStateHandler.isShift() && @modifierStateHandler.isAltGr()
+          charCode = translation.altshifted
+          keyDownEvent.altKey = false
+          keyDownEvent.ctrlKey = false
+          keyDownEvent.shiftKey = false
+        else if translation.shifted? && @modifierStateHandler.isShift()
           charCode = translation.shifted
           keyDownEvent.shiftKey = false
-        else if @modifierStateHandler.isAltGr() && translation.alted?
+        else if translation.alted? && @modifierStateHandler.isAltGr()
           charCode = translation.alted
           keyDownEvent.altKey = false
           keyDownEvent.ctrlKey = false
