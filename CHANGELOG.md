@@ -1,3 +1,7 @@
+## v1.2.2
+* support for Alt+Shift modifier bindings
+* added altshifted-bindings for pl_PL layout
+
 ## v1.2.1
 * Complete it_IT layout
 * partially fix fr_FR layout
