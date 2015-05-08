@@ -49,8 +49,10 @@ module.exports =
       # listen for config changes and load keymap
       @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
         @keymapLoader.loadKeymap()
+        @keyMapper.setKeymap(@keymapLoader.getKeymap())
       @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg, 'useKeyboardLayoutFromPath'].join('.'), () =>
         @keymapLoader.loadKeymap()
+        @keyMapper.setKeymap(@keymapLoader.getKeymap())
 
       if @keymapLoader.isLoaded()
         @keyMapper.setKeymap(@keymapLoader.getKeymap())
