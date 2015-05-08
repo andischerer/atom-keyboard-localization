@@ -1,3 +1,5 @@
+{charCodeFromKeyIdentifier, charCodeToKeyIdentifier} = require './helpers'
+
 module.exports =
 class KeyMapper
   pkg: 'keyboard-localization'
@@ -15,20 +17,8 @@ class KeyMapper
   setModifierStateHandler: (modifierStateHandler) ->
     @modifierStateHandler = modifierStateHandler
 
-  # copy from atom-keymap/helpers.coffee
-  charCodeFromKeyIdentifier: (keyIdentifier) ->
-    parseInt(keyIdentifier[2..], 16) if keyIdentifier.indexOf('U+') is 0
-
-  padZero: (strToPad, size) ->
-    while strToPad.length < size
-      strToPad = '0' + strToPad
-    return strToPad
-
-  charCodeToKeyIdentifier: (charCode) ->
-    return 'U+' + @padZero(charCode.toString(16).toUpperCase(), 4)
-
   translateKeyBinding: (keyDownEvent) ->
-    identifier = @charCodeFromKeyIdentifier(keyDownEvent.keyIdentifier)
+    identifier = charCodeFromKeyIdentifier(keyDownEvent.keyIdentifier)
     charCode = null
     if @translationTable? && identifier? && @translationTable[identifier]? && @modifierStateHandler?
       if translation = @translationTable[identifier]
@@ -43,7 +33,7 @@ class KeyMapper
           charCode = translation.unshifted
 
     if charCode?
-      keyDownEvent.keyIdentifier = @charCodeToKeyIdentifier(charCode)
+      keyDownEvent.keyIdentifier = charCodeToKeyIdentifier(charCode)
       keyDownEvent.keyCode = charCode
       keyDownEvent.which = charCode
       keyDownEvent.keyTranslated = true
