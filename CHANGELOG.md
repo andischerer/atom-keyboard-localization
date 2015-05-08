@@ -1,4 +1,4 @@
-## v1.2.2
+## v1.3.0
 * support for Alt+Shift modifier bindings
 * added altshifted-bindings for pl_PL layout
 
