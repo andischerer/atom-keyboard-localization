@@ -1,6 +1,5 @@
 {Disposable} = require 'atom'
 {$, ScrollView} = require 'atom-space-pen-views'
-
 EventedModifierStateHandler = require './evented-modifier-state-handler'
 
 module.exports =
@@ -12,35 +11,11 @@ class KeymapGeneratorView extends ScrollView
     @div class: 'keymap-generator', =>
       @div class: 'keymap-generator-container', =>
         @header class: 'keymap-generator-header', =>
-          @h1 class: 'eymap-generator-title', 'Build your Keymaps!!!!!!'
+          @h1 class: 'eymap-generator-title', 'Build your Keymaps!!!!!! Yo'
 
-  @deserialize: (options={}) ->
-    new KeymapGeneratorView(options)
-
-  initialize: ->
+  attached: ->
+    console.log "I have been attached."
     ###
-    @on 'click', 'a', ->
-      eventName = $(this).attr('data-event')
-      Reporter.sendEvent("clicked-welcome-#{eventName}-link") if eventName
-    ###
-
-  serialize: ->
-    deserializer: @constructor.name
-    uri: @getURI()
-
-  getURI: -> @uri
-
-  getTitle: -> "Keymap-Generator"
-
-  onDidChangeTitle: -> new Disposable ->
-  onDidChangeModified: -> new Disposable ->
-
-  isEqual: (other) ->
-    other instanceof KeymapGeneratorView
-
-###
-activate: () ->
-  if atom
     @eventedModifierStateHandler = new EventedModifierStateHandler()
 
     # clear modifiers on editor blur and focus
@@ -59,9 +34,11 @@ activate: () ->
     @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
     atom.keymaps.keystrokeForKeyboardEvent = (event) =>
       @onKeyDown event
+    ###
 
-deactivate: ->
-  if atom
+  detached: ->
+    console.log "I have been detached."
+    ###
     if @keymapLoader.isLoaded()
 
       atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
@@ -75,5 +52,22 @@ deactivate: ->
       @didFailToMatchBinding.dispose()
 
     @eventedModifierStateHandler = null
+    ###
 
-###
+
+  @deserialize: (options={}) ->
+    new KeymapGeneratorView(options)
+
+  serialize: ->
+    deserializer: @constructor.name
+    uri: @getURI()
+
+  getURI: -> @uri
+
+  getTitle: -> "Keymap-Generator"
+
+  onDidChangeTitle: -> new Disposable ->
+  onDidChangeModified: -> new Disposable ->
+
+  isEqual: (other) ->
+    other instanceof KeymapGeneratorView
