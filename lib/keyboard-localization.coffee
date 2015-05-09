@@ -2,6 +2,17 @@ util = require('util')
 KeymapLoader = require './keymap-loader'
 KeyMapper = require './key-mapper'
 ModifierStateHandler = require './modifier-state-handler'
+KeymapGeneratorView = null
+
+KeymapGeneratorUri = 'atom://keyboard-localization/keymap-manager'
+
+createKeymapGeneratorView = (state) ->
+  KeymapGeneratorView ?= require './keymap-generator-view'
+  new KeymapGeneratorView(state)
+
+atom.deserializers.add
+  name: 'KeymapGeneratorView'
+  deserialize: (state) -> createKeymapGeneratorView(state)
 
 module.exports =
   pkg: 'keyboard-localization'
@@ -9,6 +20,7 @@ module.exports =
   keymapLoader: null
   keyMapper: null
   modifierStateHandler: null
+  keymapGeneratorView: null
 
   config:
     useKeyboardLayout:
@@ -44,6 +56,8 @@ module.exports =
       @keymapLoader.loadKeymap()
       @keyMapper = new KeyMapper()
       @modifierStateHandler = new ModifierStateHandler()
+    atom.workspace.addOpener (filePath) ->
+      createKeymapGeneratorView(uri: KeymapGeneratorUri) if filePath is KeymapGeneratorUri
 
       # listen for config changes and load keymap
       @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
@@ -54,7 +68,17 @@ module.exports =
         @keymapLoader.loadKeymap()
         if @keymapLoader.isLoaded()
           @keyMapper.setKeymap(@keymapLoader.getKeymap())
+    atom.commands.add 'atom-workspace',
+      'keyboard-localization:keymap-generator': -> atom.workspace.open(KeymapGeneratorUri)
 
+    @keymapLoader = new KeymapLoader()
+    @keymapLoader.loadKeymap()
+    @keyMapper = new KeyMapper()
+    @modifierStateHandler = new EventedModifierStateHandler()
+
+    # listen for config changes on useKeyboardLayout
+    @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
+      @keymapLoader.loadKeymap()
       if @keymapLoader.isLoaded()
         @keyMapper.setKeymap(@keymapLoader.getKeymap())
         @keyMapper.setModifierStateHandler(@modifierStateHandler)
@@ -62,28 +86,45 @@ module.exports =
         # KeymapManager no-binding-found subscription
         @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
           @keyMapper.didFailToMatchBinding(event)
+    # listen for config changes on useKeyboardLayoutFromPath
+    @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg, 'useKeyboardLayoutFromPath'].join('.'), () =>
+      @keymapLoader.loadKeymap()
+      if @keymapLoader.isLoaded()
+        @keyMapper.setKeymap(@keymapLoader.getKeymap())
 
-        # Hijack KeymapManager
-        # @TODO: Evil hack. Find an better way ...
-        @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
-        atom.keymaps.keystrokeForKeyboardEvent = (event) =>
-          @onKeyDown event
+    if @keymapLoader.isLoaded()
+      @keyMapper.setKeymap(@keymapLoader.getKeymap())
+      @keyMapper.setModifierStateHandler(@modifierStateHandler)
+
+      # KeymapManager no-binding-found subscription
+      @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
+        @keyMapper.didFailToMatchBinding(event)
+
+
+
+      # Hijack KeymapManager
+      # @TODO: Evil hack. Find an better way ...
+      @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
+      atom.keymaps.keystrokeForKeyboardEvent = (event) =>
+        @onKeyDown event
 
   deactivate: ->
-    if atom
-      if @keymapLoader.isLoaded()
+    if @keymapLoader.isLoaded()
 
-        atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
-        @orginalKeydownEvent = null
+      atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
+      @orginalKeydownEvent = null
 
-        @didFailToMatchBinding.dispose()
+      @didFailToMatchBinding.dispose()
 
-      @changeUseKeyboardLayout.dispose()
-      @changeUseKeyboardLayoutFromPath.dispose()
+    @changeUseKeyboardLayout.dispose()
+    @changeUseKeyboardLayoutFromPath.dispose()
 
-      @modifierStateHandler = null
-      @keymapLoader = null
-      @keyMapper = null
+    @keymapGeneratorView?.destroy()
+
+    @modifierStateHandler = null
+    @keymapLoader = null
+    @keyMapper = null
+    @keymapGeneratorView = null
 
   createNewKeyDownEvent: (event) ->
     keyDownEvent = util._extend({} , event)
