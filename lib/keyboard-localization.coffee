@@ -1,7 +1,18 @@
 util = require('util')
 KeymapLoader = require './keymap-loader'
 KeyMapper = require './key-mapper'
-ModifierStateHandler = require './modifier-state-handler'
+EventedModifierStateHandler = require './evented-modifier-state-handler'
+KeymapGeneratorView = null
+
+KeymapGeneratorUri = 'atom://keyboard-localization/keymap-manager'
+
+createKeymapGeneratorView = (state) ->
+  KeymapGeneratorView ?= require './keymap-generator-view'
+  new KeymapGeneratorView(state)
+
+atom.deserializers.add
+  name: 'KeymapGeneratorView'
+  deserialize: (state) -> createKeymapGeneratorView(state)
 
 module.exports =
   pkg: 'keyboard-localization'
@@ -11,6 +22,7 @@ module.exports =
   modifierStateHandler: null
   keyUpEventListener: null
   clearModifierStateListener: null
+  keymapGeneratorView: null
 
   config:
     useKeyboardLayout:
@@ -40,67 +52,76 @@ module.exports =
       description: 'Provide an absolute path to your keymap-json file'
 
   activate: (state) ->
-    if atom
-      @keymapLoader = new KeymapLoader()
+    atom.workspace.addOpener (filePath) ->
+      createKeymapGeneratorView(uri: KeymapGeneratorUri) if filePath is KeymapGeneratorUri
+
+    atom.commands.add 'atom-workspace',
+      'keyboard-localization:keymap-generator': -> atom.workspace.open(KeymapGeneratorUri)
+
+    @keymapLoader = new KeymapLoader()
+    @keymapLoader.loadKeymap()
+    @keyMapper = new KeyMapper()
+    @modifierStateHandler = new EventedModifierStateHandler()
+
+    # listen for config changes on useKeyboardLayout
+    @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
       @keymapLoader.loadKeymap()
-      @keyMapper = new KeyMapper()
-      @modifierStateHandler = new ModifierStateHandler()
-
-      # listen for config changes and load keymap
-      @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
-        @keymapLoader.loadKeymap()
-        if @keymapLoader.isLoaded()
-          @keyMapper.setKeymap(@keymapLoader.getKeymap())
-      @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg, 'useKeyboardLayoutFromPath'].join('.'), () =>
-        @keymapLoader.loadKeymap()
-        if @keymapLoader.isLoaded()
-          @keyMapper.setKeymap(@keymapLoader.getKeymap())
-
       if @keymapLoader.isLoaded()
         @keyMapper.setKeymap(@keymapLoader.getKeymap())
-        @keyMapper.setModifierStateHandler(@modifierStateHandler)
 
-        # KeymapManager no-binding-found subscription
-        @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
-          @keyMapper.didFailToMatchBinding(event)
+    # listen for config changes on useKeyboardLayoutFromPath
+    @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg, 'useKeyboardLayoutFromPath'].join('.'), () =>
+      @keymapLoader.loadKeymap()
+      if @keymapLoader.isLoaded()
+        @keyMapper.setKeymap(@keymapLoader.getKeymap())
 
-        # clear modifiers on editor blur and focus
-        @clearModifierStateListener = () =>
-          @modifierStateHandler.clearModifierState()
-        window.addEventListener 'blur', @clearModifierStateListener
-        window.addEventListener 'focus', @clearModifierStateListener
+    if @keymapLoader.isLoaded()
+      @keyMapper.setKeymap(@keymapLoader.getKeymap())
+      @keyMapper.setModifierStateHandler(@modifierStateHandler)
 
-        # Keyup-Event for ModifierStateHandler
-        @keyUpEventListener = (event) =>
-          @onKeyUp(event)
-        document.addEventListener 'keyup', @keyUpEventListener
+      # KeymapManager no-binding-found subscription
+      @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
+        @keyMapper.didFailToMatchBinding(event)
 
-        # Hijack KeymapManager
-        # @TODO: Evil hack. Find an better way ...
-        @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
-        atom.keymaps.keystrokeForKeyboardEvent = (event) =>
-          @onKeyDown event
+      # clear modifiers on editor blur and focus
+      @clearModifierStateListener = () =>
+        @modifierStateHandler.clearModifierState()
+      window.addEventListener 'blur', @clearModifierStateListener
+      window.addEventListener 'focus', @clearModifierStateListener
+
+      # Keyup-Event for EventedModifierStateHandler
+      @keyUpEventListener = (event) =>
+        @onKeyUp(event)
+      document.addEventListener 'keyup', @keyUpEventListener
+
+      # Hijack KeymapManager
+      # @TODO: Evil hack. Find an better way ...
+      @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
+      atom.keymaps.keystrokeForKeyboardEvent = (event) =>
+        @onKeyDown event
 
   deactivate: ->
-    if atom
-      if @keymapLoader.isLoaded()
+    if @keymapLoader.isLoaded()
 
-        atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
-        @orginalKeydownEvent = null
+      atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
+      @orginalKeydownEvent = null
 
-        document.removeEventListener 'keyup', @keyUpEventListener
+      document.removeEventListener 'keyup', @keyUpEventListener
 
-        window.removeEventListener 'blur', @clearModifierStateListener
-        window.removeEventListener 'focus', @clearModifierStateListener
+      window.removeEventListener 'blur', @clearModifierStateListener
+      window.removeEventListener 'focus', @clearModifierStateListener
 
-        @didFailToMatchBinding.dispose()
+      @didFailToMatchBinding.dispose()
 
-      @changeUseKeyboardLayout.dispose()
-      @changeUseKeyboardLayoutFromPath.dispose()
+    @changeUseKeyboardLayout.dispose()
+    @changeUseKeyboardLayoutFromPath.dispose()
 
-      @modifierStateHandler = null
-      @keymapLoader = null
-      @keyMapper = null
+    @keymapGeneratorView?.destroy()
+
+    @modifierStateHandler = null
+    @keymapLoader = null
+    @keyMapper = null
+    @keymapGeneratorView = null
 
   createNewKeyDownEvent: (event) ->
     keyDownEvent = util._extend({} , event)
