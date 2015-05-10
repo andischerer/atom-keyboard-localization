@@ -11,49 +11,30 @@ class KeymapGeneratorView extends ScrollView
     @div class: 'keymap-generator', =>
       @div class: 'keymap-generator-container', =>
         @header class: 'keymap-generator-header', =>
-          @h1 class: 'eymap-generator-title', 'Build your Keymaps!!!!!! Yo'
+          @h1 class: 'keymap-generator-title', 'Build your Keymap for your foreign keyboard layout.'
+        @section class:'keys-panel', =>
+          @div class: 'key-box', =>
+            @p 'KeyDown-Event:', =>
+              @div outlet: 'keydown'
+          @div class:'key-box', =>
+            @p 'KeyPress-Event:', =>
+              @div outlet: 'keypress'
+        @textarea keydown: 'onKeyDown', keypress: 'onKeyPress', keyup: 'onKeyUp', class: 'keymap-generator'
 
   attached: ->
     console.log "I have been attached."
-    ###
-    @eventedModifierStateHandler = new EventedModifierStateHandler()
-
-    # clear modifiers on editor blur and focus
-    @clearModifierStateListener = () =>
-      @eventedModifierStateHandler.clearModifierState()
-    window.addEventListener 'blur', @clearModifierStateListener
-    window.addEventListener 'focus', @clearModifierStateListener
-
-    # Keyup-Event for EventedModifierStateHandler
-    @keyUpEventListener = (event) =>
-      @onKeyUp(event)
-    document.addEventListener 'keyup', @keyUpEventListener
-
-    # Hijack KeymapManager
-    # @TODO: Evil hack. Find an better way ...
-    @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
-    atom.keymaps.keystrokeForKeyboardEvent = (event) =>
-      @onKeyDown event
-    ###
 
   detached: ->
     console.log "I have been detached."
-    ###
-    if @keymapLoader.isLoaded()
 
-      atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
-      @orginalKeydownEvent = null
+  onKeyDown: (event) ->
+    console.log event
 
-      document.removeEventListener 'keyup', @keyUpEventListener
+  onKeyPress: (event) ->
+    console.log event
 
-      window.removeEventListener 'blur', @clearModifierStateListener
-      window.removeEventListener 'focus', @clearModifierStateListener
-
-      @didFailToMatchBinding.dispose()
-
-    @eventedModifierStateHandler = null
-    ###
-
+  onKeyUp: (event) ->
+    console.log event
 
   @deserialize: (options={}) ->
     new KeymapGeneratorView(options)
