@@ -3,9 +3,9 @@
 .keymap-generator {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4em;
+  align-items: left;
+  justify-content: left;
+  padding: 1.5em;
   font-size: 1.25em;
   line-height: 1.4;
   color: @text-color;
@@ -27,27 +27,35 @@
   }
 
   // Components ----------------------
+  .keys-panel {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .key-box {
+    diplay: flex;
+    padding: 1em;
+    border: 1px solid @base-border-color;
+    margin-right: 2em;
+    width: 350px;
+  }
+
+  .key-box:last-child {
+    margin-right: 0;
+  }
 
   &-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 800px;
   }
 
   &-header {
-    margin: 0 0 6em 0;
-  }
-
-  &-logo {
-    display: block;
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto 2em auto;
-    color: @text-color-highlight;
+    margin: 0 0 1.5em 0;
   }
 
   &-title {
     font-size: 1.4em;
-    text-align: center;
+    text-align: left;
     line-height: 1.3;
     margin: 1em 0;
   }
@@ -128,7 +136,7 @@
   }
 
   &-footer {
-    text-align: center;
+    text-align: left;
   }
 
 }
