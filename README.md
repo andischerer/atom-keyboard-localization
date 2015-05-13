@@ -1,6 +1,12 @@
 # Keyboard localization package for non US-Keyboard Layouts
 This is a compatibility package for atom text editor which tries to remap keycodes for your given keyboard layout.
 
+## Installation ##
+Go in Atom's **Settings** page, through **packages** section. Under **Community Packages** search for "*keyboard-localization*" and Install it.
+
+## Usage ##
+Inside Atom's packages management, click **Settings**, and in the freshly opened panel, either choose an existing Keyboard Layout from the list, or pick a keymap file from the filepicker.
+
 ## Whats working
 * Prevent default keybindings from being fired
 * Keybindings in your foreign keyboard layout
