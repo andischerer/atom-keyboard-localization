@@ -1,98 +1,208 @@
+###
+ * Modifierhandling shamelessly stolen and customized from brackets:
+ * https://github.com/adobe/brackets/blob/master/src/command/KeyBindingManager.js
+###
+
+KeyEvent = require './key-event'
+
 module.exports =
-class ModifierState
-  currentModifierState: {}
-  keyEventQueueWorker: null
-  keyEventQueue: []
-  modifiers:
-    shift: [
-      'Shift'
-      'U+00A0'
-      'U+00A1'
-    ]
-    ctrl: [
-      'Control'
-      'U+00A2'
-      'U+00A3'
-    ]
-    alt: [
-      'Alt'
-      'U+00A4'
-      'U+00A5'
-    ]
-    altgr: [
-      'U+00E1' # linux altgr identifier
-    ]
+class ModifierStateHandler
+  ###*
+   * States of Ctrl key down detection
+   * @enum {number}
+  ###
+  CtrlDownStates:
+    'NOT_YET_DETECTED': 0
+    'DETECTED': 1
+    'DETECTED_AND_IGNORED': 2
 
-  constructor: ->
-    @currentModifierState = {}
-    # @TODO: Use Task(https://atom.io/docs/api/v0.189.0/Task) for keyEventQueue processing
-    @keyEventQueueWorker = setInterval((=>
-      @processKeyEventQueue()
-    ), 0)
+  ###*
+   * Flags used to determine whether right Alt key is pressed. When it is pressed,
+   * the following two keydown events are triggered in that specific order.
+   *
+   *    1. ctrlDown - flag used to record { ctrlKey: true, keyIdentifier: "Control", ... } keydown event
+   *    2. altGrDown - flag used to record { ctrlKey: true, altKey: true, keyIdentifier: "Alt", ... } keydown event
+   *
+   * @type {CtrlDownStates|boolean}
+  ###
+  ctrlDown: 0 # initialize with CtrlDownState => NOT_YET_DETECTED
+  altGrDown: false
 
-  destroy: ->
-    clearInterval(@keyEventQueueWorker)
-    @keyEventQueueWorker = null
+  hasShift: false
+  hasCtrl: false
+  hasAltGr: false
+  hasAlt: false
 
-  processKeyEventQueue: () ->
-    keyEvent = @keyEventQueue.shift()
-    if keyEvent?
-      if keyEvent.type == 'keydown'
-        @addModifier(keyEvent)
-      if keyEvent.type == 'keyup'
-        @removeModifier(keyEvent)
+  ###*
+   * Constant used for checking the interval between Control keydown event and Alt keydown event.
+   * If the right Alt key is down we get Control keydown followed by Alt keydown within 30 ms. if
+   * the user is pressing Control key and then Alt key, the interval will be larger than 30 ms.
+   * @type {number}
+  ###
+  MAX_INTERVAL_FOR_CTRL_ALT_KEYS: 30
 
-  isModifier: (identifier) ->
-    for key of @modifiers
-      if @modifiers[key].indexOf(identifier) != -1
-        return key
-    false
+  ###*
+   * Constant used for identifying AltGr on Linux
+   * @type {String}
+  ###
+  LINUX_ALTGR_IDENTIFIER = 'U+00E1'
 
-  addModifier: (keyEvent) ->
-    identifier = @isModifier(keyEvent.keyIdentifier)
-    if identifier
-      @currentModifierState[identifier] = keyEvent
+  ###*
+   * Used to record the timeStamp property of the last keydown event.
+   * @type {number}
+  ###
+  lastTimeStamp: null
 
-  removeModifier: (keyEvent) ->
-    identifier = @isModifier(keyEvent.keyIdentifier)
-    if identifier
-      delete @currentModifierState[identifier]
+  ###*
+   * Used to record the keyIdentifier property of the last keydown event.
+   * @type {string}
+  ###
+  lastKeyIdentifier: null
 
-  clearModifierState: () ->
-    @keyEventQueue = []
-    @currentModifierState = []
+  ###*
+   * keyUpListener for AltGrMode recognition
+   * @type {event}
+  ###
+  keyUpEventListener: null
 
+  ###*
+   * Resets all the flags and removes onAltGrUp event listener.
+  ###
+  quitAltGrMode: ->
+    @ctrlDown = @CtrlDownStates.NOT_YET_DETECTED
+    @altGrDown = false
+    @lastTimeStamp = null
+    @lastKeyIdentifier = null
+    document.removeEventListener 'keyup', @keyUpEventListener
+
+  ###*
+   * Detects the release of AltGr key by checking all keyup events
+   * until we receive one with ctrl key code. Once detected, reset
+   * all the flags and also remove this event listener.
+   *
+   * @param {!KeyboardEvent} e keyboard event object
+  ###
+  onAltGrUp: (e) ->
+    if process.platform = 'win32'
+      key = e.keyCode || e.which
+      if @altGrDown && key == KeyEvent.DOM_VK_CONTROL
+        @quitAltGrMode()
+    if process.platform = 'linux'
+      if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
+        @quitAltGrMode()
+
+  ###*
+   * Detects whether AltGr key is pressed. When it is pressed, the first keydown event has
+   * ctrlKey === true with keyIdentifier === "Control". The next keydown event with
+   * altKey === true, ctrlKey === true and keyIdentifier === "Alt" is sent within 30 ms. Then
+   * the next keydown event with altKey === true, ctrlKey === true and keyIdentifier === "Control"
+   * is sent. If the user keep holding AltGr key down, then the second and third
+   * keydown events are repeatedly sent out alternately. If the user is also holding down Ctrl
+   * key, then either keyIdentifier === "Control" or keyIdentifier === "Alt" is repeatedly sent
+   * but not alternately.
+   *
+   * @param {!KeyboardEvent} e keyboard event object
+  ###
+  detectAltGrKeyDown: (e) ->
+    if process.platform = 'win32'
+      if !@altGrDown
+        if @ctrlDown != @CtrlDownStates.DETECTED_AND_IGNORED && e.ctrlKey && e.keyIdentifier == 'Control'
+          @ctrlDown = @CtrlDownStates.DETECTED
+        else if e.repeat && e.ctrlKey && e.keyIdentifier == 'Control'
+          # We get here if the user is holding down left/right Control key. Set it to false
+          # so that we don't misidentify the combination of Ctrl and Alt keys as AltGr key.
+          @ctrlDown = @CtrlDownStates.DETECTED_AND_IGNORED
+        else if @ctrlDown == @CtrlDownStates.DETECTED && e.altKey && e.ctrlKey && e.keyIdentifier == 'Alt' && e.timeStamp - @lastTimeStamp < @MAX_INTERVAL_FOR_CTRL_ALT_KEYS && e.keyLocation == 2
+          @altGrDown = true
+          @lastKeyIdentifier = 'Alt'
+          @keyUpEventListener = (e) =>
+            @onAltGrUp(e)
+          document.addEventListener 'keyup', @keyUpEventListener
+        else
+          # Reset ctrlDown so that we can start over in detecting the two key events
+          # required for AltGr key.
+          @ctrlDown = @CtrlDownStates.NOT_YET_DETECTED
+        @lastTimeStamp = e.timeStamp
+      else if e.keyIdentifier == 'Control' || e.keyIdentifier == 'Alt'
+        # If the user is NOT holding down AltGr key or is also pressing Ctrl key,
+        # then lastKeyIdentifier will be the same as keyIdentifier in the current
+        # key event. So we need to quit AltGr mode.
+        if e.altKey && e.ctrlKey && e.keyIdentifier == @lastKeyIdentifier
+          @quitAltGrMode()
+        else
+          @lastKeyIdentifier = e.keyIdentifier
+    if process.platform = 'linux'
+      if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
+        @altGrDown = true
+        @keyUpEventListener = (e) =>
+          @onAltGrUp(e)
+        document.addEventListener 'keyup', @keyUpEventListener
+    else
+      return
+
+  ###*
+   * Handle key event
+   *
+   * @param {!KeyboardEvent} e keyboard event object
+  ###
+  handleKeyEvent: (e) ->
+    @detectAltGrKeyDown(e)
+
+    if process.platform == 'win32'
+      @hasCtrl = !@altGrDown && e.ctrlKey
+      @hasAltGr = @altGrDown
+      @hasAlt = !@altGrDown && e.altKey
+    else if process.platform == 'linux'
+      @hasCtrl = e.ctrlKey
+      @hasAltGr = @altGrDown
+      @hasAlt = e.altKey
+    else
+      @hasCtrl = if process.platform != 'darwin' then e.ctrlKey else e.metaKey
+      @hasAltGr = e.altKey
+      @hasAlt = e.altKey
+
+    @hasShift = e.shiftKey
+
+    # @logModifiers(e)
+
+  ###*
+   * determine if shift key is pressed
+  ###
   isShift: ->
-    return @currentModifierState.hasOwnProperty 'shift'
+    return @hasShift
 
-  isAlt: ->
-    if process.platform == 'win32'
-      return @currentModifierState.hasOwnProperty('alt') and @currentModifierState.alt.keyLocation != 2
-    else
-      return @currentModifierState.hasOwnProperty('alt')
-
+  ###*
+   * determine if altgr key is pressed
+  ###
   isAltGr: ->
-    if process.platform == 'win32'
-      return @currentModifierState.hasOwnProperty('alt') and @currentModifierState.alt.keyLocation == 2
-    else
-      return @currentModifierState.hasOwnProperty('altgr')
+    return @hasAltGr
 
+  ###*
+   * determine if alt key is pressed
+  ###
+  isAlt: ->
+    return @hasAlt
+
+  ###*
+   * determine if ctrl key is pressed
+  ###
   isCtrl: ->
-    if process.platform == 'win32'
-      return @currentModifierState.hasOwnProperty('ctrl') and !@isAltGr()
-    else
-      @currentModifierState.hasOwnProperty('ctrl')
+    return @hasCtrl
 
-  onKeyDown: (keyEvent) ->
-    @keyEventQueue.push(keyEvent)
+  ###*
+   * debug function, prints modifiers and KeyboardEvent to console
+   * @param {event} e
+  ###
+  logModifiers: (e) ->
+    keyDescriptor = []
+    if @isCtrl()
+      keyDescriptor.push('ctrl')
+    if @isAlt()
+      keyDescriptor.push('alt')
+    if @isAltGr()
+      keyDescriptor.push('altgr')
+    if @isShift()
+      keyDescriptor.push('shift')
 
-  onKeyUp: (keyEvent) ->
-    @keyEventQueue.push(keyEvent)
-
-  logModifiers: ->
-    mods =
-      shift: @isShift()
-      alt: @isAlt()
-      altgr: @isAltGr()
-      ctrl: @isCtrl()
-    return JSON.stringify(mods)
+    if keyDescriptor.length > 0
+      console.log('%c ' + keyDescriptor.join(' - ') + ' ', 'background: #222; color: #bada55', e)

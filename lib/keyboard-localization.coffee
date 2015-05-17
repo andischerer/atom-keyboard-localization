@@ -9,8 +9,6 @@ module.exports =
   keymapLoader: null
   keyMapper: null
   modifierStateHandler: null
-  keyUpEventListener: null
-  clearModifierStateListener: null
 
   config:
     useKeyboardLayout:
@@ -64,17 +62,6 @@ module.exports =
         @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
           @keyMapper.didFailToMatchBinding(event)
 
-        # clear modifiers on editor blur and focus
-        @clearModifierStateListener = () =>
-          @modifierStateHandler.clearModifierState()
-        window.addEventListener 'blur', @clearModifierStateListener
-        window.addEventListener 'focus', @clearModifierStateListener
-
-        # Keyup-Event for ModifierStateHandler
-        @keyUpEventListener = (event) =>
-          @onKeyUp(event)
-        document.addEventListener 'keyup', @keyUpEventListener
-
         # Hijack KeymapManager
         # @TODO: Evil hack. Find an better way ...
         @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
@@ -87,11 +74,6 @@ module.exports =
 
         atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
         @orginalKeydownEvent = null
-
-        document.removeEventListener 'keyup', @keyUpEventListener
-
-        window.removeEventListener 'blur', @clearModifierStateListener
-        window.removeEventListener 'focus', @clearModifierStateListener
 
         @didFailToMatchBinding.dispose()
 
@@ -111,9 +93,6 @@ module.exports =
 
   onKeyDown: (event, cb) ->
     newKeyEvent = @createNewKeyDownEvent(event)
-    @modifierStateHandler.onKeyDown(newKeyEvent)
+    @modifierStateHandler.handleKeyEvent(newKeyEvent)
     @keyMapper.remap(newKeyEvent)
     return @orginalKeydownEvent(newKeyEvent)
-
-  onKeyUp: (event) ->
-    @modifierStateHandler.onKeyUp(event)
