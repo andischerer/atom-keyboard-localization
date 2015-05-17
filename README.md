@@ -10,9 +10,10 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 ## Whats working
 * Prevent default keybindings from being fired
 * Keybindings in your foreign keyboard layout
-* AltGr-Key (works for me on german layout)
+* AltGr-Key
 * vim-mode keybindings
 * tested on Windows and Linux
+* Multi-combo bindings (AltGr+Shift)
 
 ## Supported Keyboard Layouts atm
 * [German 105-key "QWERTZ"](http://en.wikipedia.org/wiki/File:KB_Germany.svg) (`de_DE`)
@@ -30,6 +31,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [Slovenian](http://smotko.si/assets/pics/keyboard.png) (`sl_SL`) - untested
 * [Italian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_italian.gif) (`it_IT`)
 * [Portuguese](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_portug.gif) (`pt_PT`) - untested
+* Latvian (`lv_LV`)
 
 
 Feel free to send me Issues/PRs so i can add more keymaps.

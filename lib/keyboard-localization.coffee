@@ -24,6 +24,7 @@ module.exports =
         'fr_CA'
         'hu_HU'
         'it_IT'
+        'lv_LV'
         'nb_NO'
         'pl_PL'
         'pt_PT'

@@ -1,3 +1,9 @@
+## v1.3.1
+* reworked modifier-state-handler
+* added lv_LV keyboard layout - thx [tomaac](https://github.com/tomaac)
+* docs updated - thx [cyrilchapon](https://github.com/cyrilchapon)
+* fixed fr_BE keymap - thx [Soofe](https://github.com/Soofe)
+
 ## v1.3.0
 * support for Alt+Shift modifier bindings
 * added altshifted-bindings for pl_PL layout
