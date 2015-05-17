@@ -21,13 +21,11 @@
     },
     "52": {
         "unshifted": 39,
-        "shifted": 52,
-        "alted": 123
+        "shifted": 52
     },
     "53": {
         "unshifted": 40,
-        "shifted": 53,
-        "alted": 91
+        "shifted": 53
     },
     "54": {
         "unshifted": 167,
@@ -53,7 +51,7 @@
     "186": {
         "unshifted": 36,
         "shifted": 42,
-        "alted": 93
+        "alted": 93 
     },
     "187": {
         "unshifted": 61,
@@ -83,12 +81,12 @@
     },
     "219": {
         "unshifted": 41,
-        "shifted": 176
+        "shifted": 176,
+	"alted": 91
     },
     "220": {
-        "unshifted": 181,
-        "shifted": 163,
-        "alted": 96
+        "shifted": 62,
+        "alted": 92
     },
     "221": {
         "unshifted": 94,
