@@ -1,11 +1,11 @@
 {Disposable} = require 'atom'
 {$, ScrollView} = require 'atom-space-pen-views'
-EventedModifierStateHandler = require './evented-modifier-state-handler'
+ModifierStateHandler = require './modifier-state-handler'
 
 module.exports =
 class KeymapGeneratorView extends ScrollView
   pkg: 'keyboard-localization'
-  eventedModifierStateHandler: null
+  modifierStateHandler: null
 
   @content: ->
     @div class: 'keymap-generator', =>

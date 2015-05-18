@@ -3,7 +3,6 @@ KeymapLoader = require './keymap-loader'
 KeyMapper = require './key-mapper'
 ModifierStateHandler = require './modifier-state-handler'
 KeymapGeneratorView = null
-
 KeymapGeneratorUri = 'atom://keyboard-localization/keymap-manager'
 
 createKeymapGeneratorView = (state) ->
@@ -51,42 +50,22 @@ module.exports =
       description: 'Provide an absolute path to your keymap-json file'
 
   activate: (state) ->
-    if atom
-      @keymapLoader = new KeymapLoader()
-      @keymapLoader.loadKeymap()
-      @keyMapper = new KeyMapper()
-      @modifierStateHandler = new ModifierStateHandler()
     atom.workspace.addOpener (filePath) ->
       createKeymapGeneratorView(uri: KeymapGeneratorUri) if filePath is KeymapGeneratorUri
 
-      # listen for config changes and load keymap
-      @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
-        @keymapLoader.loadKeymap()
-        if @keymapLoader.isLoaded()
-          @keyMapper.setKeymap(@keymapLoader.getKeymap())
-      @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg, 'useKeyboardLayoutFromPath'].join('.'), () =>
-        @keymapLoader.loadKeymap()
-        if @keymapLoader.isLoaded()
-          @keyMapper.setKeymap(@keymapLoader.getKeymap())
     atom.commands.add 'atom-workspace',
       'keyboard-localization:keymap-generator': -> atom.workspace.open(KeymapGeneratorUri)
 
     @keymapLoader = new KeymapLoader()
     @keymapLoader.loadKeymap()
     @keyMapper = new KeyMapper()
-    @modifierStateHandler = new EventedModifierStateHandler()
+    @modifierStateHandler = new ModifierStateHandler()
 
-    # listen for config changes on useKeyboardLayout
+    # listen for config changes and load keymap
     @changeUseKeyboardLayout = atom.config.onDidChange [@pkg, 'useKeyboardLayout'].join('.'), () =>
       @keymapLoader.loadKeymap()
       if @keymapLoader.isLoaded()
         @keyMapper.setKeymap(@keymapLoader.getKeymap())
-        @keyMapper.setModifierStateHandler(@modifierStateHandler)
-
-        # KeymapManager no-binding-found subscription
-        @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
-          @keyMapper.didFailToMatchBinding(event)
-    # listen for config changes on useKeyboardLayoutFromPath
     @changeUseKeyboardLayoutFromPath = atom.config.onDidChange [@pkg, 'useKeyboardLayoutFromPath'].join('.'), () =>
       @keymapLoader.loadKeymap()
       if @keymapLoader.isLoaded()
@@ -99,8 +78,6 @@ module.exports =
       # KeymapManager no-binding-found subscription
       @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
         @keyMapper.didFailToMatchBinding(event)
-
-
 
       # Hijack KeymapManager
       # @TODO: Evil hack. Find an better way ...
