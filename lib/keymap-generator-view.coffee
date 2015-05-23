@@ -26,6 +26,7 @@ class ModifierView extends View
 
 class KeyEventView extends View
   @event = null
+  @modifiers = null
   @content: (params) ->
     @div class: 'key-box block', =>
     #@tag 'atom-panel', class:'left', =>
@@ -39,25 +40,43 @@ class KeyEventView extends View
       @div =>
         @span class: 'inline-block', 'Char: '
         @span class: 'inline-block', outlet: 'char'
-  setKey: (keyEvent) ->
+      @div =>
+        @span class: 'inline-block', 'Modifier: '
+        @span class: 'inline-block', outlet: 'modifier'
+  setKey: (keyEvent, modifiers) ->
     @event = keyEvent
-    @identifier.text(@event.keyIdentifier + ' (' + charCodeFromKeyIdentifier(@event.keyIdentifier) + ')')
-    @code.text(@event.keyCode || @event.which)
-    @char.text(String.fromCharCode(@event.keyCode || @event.which))
-    console.log keyEvent
+    @modifiers = modifiers
+
+    @event.code = charCodeFromKeyIdentifier(@event.keyIdentifier) || @event.keyCode || @event.which
+    @event.char = String.fromCharCode(@event.code).toLowerCase()
+
+    @identifier.text(@event.keyIdentifier)
+    @code.text(@event.code)
+    @char.text(@event.char)
+
+    modifierStack = []
+    for k, v of @modifiers
+      if v == true then modifierStack.push(k)
+    @modifier.text(modifierStack.join(' '))
+    # console.log keyEvent
   getKey: ->
     return @event
+  getModifiers: ->
+    return @modifiers
   clear: ->
     @event = null
+    @modifiers = null
     @identifier.text('')
     @code.text('')
     @char.text('')
+    @modifier.text('')
 
 
 module.exports =
 class KeymapGeneratorView extends ScrollView
   pkg: 'keyboard-localization'
 
+  mapping: {}
   modifierStateHandler: null
   keyMapper: null
 
@@ -76,11 +95,16 @@ class KeymapGeneratorView extends ScrollView
           @label class: 'inline-block text-smaller', 'Type something here: '
           @input class: 'inline-block input', type: 'text', keydown: 'onKeyDown', keypress: 'onKeyPress', keyup: 'onKeyUp', outlet: 'input'
 
-        @section class: 'modifier-panel', =>
+        @section class: 'modifier-panel block', =>
           @subview 'ctrlView', new ModifierView(label: 'Ctrl')
           @subview 'altView', new ModifierView(label: 'Alt')
           @subview 'shiftView', new ModifierView(label: 'Shift')
           @subview 'altgrView', new ModifierView(label: 'AltGr')
+
+        @section class: 'bindings-panel block', =>
+          @pre class:'block', outlet: 'bindingsView'
+          @div class: 'block', =>
+            @button class: 'btn', click: 'clearMapping', 'clear Mapping'
 
   attached: ->
     @keyMapper = new KeyMapper()
@@ -97,6 +121,28 @@ class KeymapGeneratorView extends ScrollView
     @shiftView.setActive(@modifierStateHandler.isShift())
     @altgrView.setActive(@modifierStateHandler.isAltGr())
 
+  addMapping: ->
+    down = @keyDownView.getKey()
+    modifier = @keyDownView.getModifiers()
+    press = @keyPressView.getKey()
+    if press != null && down.char != press.char
+      console.log 'addMapping'
+      mod = 'unshifted'
+      if modifier.shift
+        mod = 'shifted'
+      if modifier.altgr
+        mod = 'alted'
+      if modifier.shift && modifier.altgr
+        mod = 'altshifted'
+      if !@mapping[down.code]?
+        @mapping[down.code] = {}
+      @mapping[down.code][mod] = press.code
+      @bindingsView.text(JSON.stringify(@mapping, undefined, 4))
+
+  clearMapping: ->
+    @mapping = {}
+    @bindingsView.text('')
+
   onKeyDown: (event) ->
     @input.val('')
     @keyDownView.clear()
@@ -105,16 +151,17 @@ class KeymapGeneratorView extends ScrollView
     originalEvent = util._extend({}, event.originalEvent)
     @modifierStateHandler.handleKeyEvent(originalEvent)
     @updateModifiers()
-    @keyDownView.setKey(originalEvent)
+    @keyDownView.setKey(originalEvent, @modifierStateHandler.getState())
 
   onKeyPress: (event) ->
     originalEvent = util._extend({}, event.originalEvent)
-    @keyPressView.setKey(originalEvent)
+    @keyPressView.setKey(originalEvent, @modifierStateHandler.getState())
 
   onKeyUp: (event) ->
     originalEvent = util._extend({}, event.originalEvent)
     @modifierStateHandler.handleKeyEvent(originalEvent)
     @updateModifiers()
+    @addMapping()
 
   @deserialize: (options={}) ->
     new KeymapGeneratorView(options)

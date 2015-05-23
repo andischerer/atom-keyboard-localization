@@ -215,6 +215,16 @@ class ModifierStateHandler
     return @hasCtrl
 
   ###*
+   * get the state of all modifiers
+   * @return {object}
+  ###
+  getState: ->
+    shift: @isShift()
+    altgr: @isAltGr()
+    alt: @isAlt()
+    ctrl: @isCtrl()
+
+  ###*
    * debug function, prints modifiers and KeyboardEvent to console
    * @param {event} e
   ###
