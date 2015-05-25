@@ -30,6 +30,7 @@ module.exports =
         'de_DE-neo'
         'de_DE'
         'es_ES'
+        'es_LA'
         'fr_BE'
         'fr_FR'
         'fr_CA'
