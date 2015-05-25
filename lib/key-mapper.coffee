@@ -1,8 +1,7 @@
+ModifierStateHandler = require './modifier-state-handler'
 {charCodeFromKeyIdentifier, charCodeToKeyIdentifier} = require './helpers'
 
-module.exports =
 class KeyMapper
-  pkg: 'keyboard-localization'
   translationTable: null
   keyDownEvent: null
   modifierStateHandler: null
@@ -11,11 +10,14 @@ class KeyMapper
     @translationTable = null
     @modifierStateHandler = null
 
+  setModifierStateHandler: (modifierStateHandler) ->
+    @modifierStateHandler = modifierStateHandler
+
   setKeymap: (keymap) ->
     @translationTable = keymap
 
-  setModifierStateHandler: (modifierStateHandler) ->
-    @modifierStateHandler = modifierStateHandler
+  getKeymap: ->
+    return @translationTable
 
   translateKeyBinding: (keyDownEvent) ->
     identifier = charCodeFromKeyIdentifier(keyDownEvent.keyIdentifier)
@@ -58,3 +60,13 @@ class KeyMapper
         key = String.fromCharCode(@keyDownEvent.which)
         editor.insertText(key)
         event.preventDefault()
+
+keyMapper = null
+
+getInstance = ->
+  if keyMapper == null
+    keyMapper = new KeyMapper()
+  return keyMapper
+
+module.exports =
+  getInstance: getInstance

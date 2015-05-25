@@ -6,7 +6,7 @@ KeymapGeneratorView = null
 KeymapGeneratorUri = 'atom://keyboard-localization/keymap-manager'
 
 createKeymapGeneratorView = (state) ->
-  KeymapGeneratorView ?= require './keymap-generator-view'
+  KeymapGeneratorView ?= require './views/keymap-generator-view'
   new KeymapGeneratorView(state)
 
 atom.deserializers.add
@@ -58,7 +58,7 @@ module.exports =
 
     @keymapLoader = new KeymapLoader()
     @keymapLoader.loadKeymap()
-    @keyMapper = new KeyMapper()
+    @keyMapper = KeyMapper.getInstance()
     @modifierStateHandler = new ModifierStateHandler()
 
     # listen for config changes and load keymap
