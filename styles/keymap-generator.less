@@ -1,0 +1,149 @@
+@import "ui-variables";
+
+.keymap-generator {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em;
+  font-size: 1em;
+  color: @text-color;
+  background-color: @base-background-color;
+  overflow-x: auto;
+
+  .header {
+      flex-shrink: 0;
+
+      .title {
+        font-size: 1.7em;
+      }
+  }
+
+  .keys-events-panel {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    // overflow: auto;
+    margin-bottom: 1em;
+
+    .key-box {
+      diplay: flex;
+      flex: 1;
+      padding: 1em;
+      border: 1px solid @base-border-color;
+      background-color: @background-color-highlight;
+      border-radius: @component-border-radius;
+      margin-right: 1em;
+
+      .section-heading {
+        margin-bottom: 1em;
+      }
+
+      .key-attribute-row {
+        display: flex;
+        flex-direction: row;
+
+        *{
+            display: flex;
+            flex: 1;
+        }
+      }
+
+    }
+
+    .key-box:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .modifier-bar-panel {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: row;
+    margin-bottom: 1em;
+
+    .modifier {
+      flex: 1;
+      padding: 1em;
+      border: 1px solid @base-border-color;
+      text-align: center;
+      background-color: @background-color-highlight;
+      border-radius: @component-border-radius;
+      margin-right: 1em;
+    }
+
+    .modifier:last-child {
+      margin-right: 0;
+    }
+
+    .modifier-active {
+        background-color: @button-background-color-selected;
+        color: @text-color-selected;
+    }
+  }
+
+  .key-input-panel {
+      margin-bottom: 1em;
+      display: flex;
+      flex-shrink: 0;
+      flex-direction: column;
+      align-items: stretch;
+
+      .key-label {
+        color: @text-color-subtle;
+        margin-bottom: 0.3em;
+      }
+
+      .key-input {
+          background-color: @input-background-color;
+          border: 1px solid @input-border-color;
+          border-radius: @component-border-radius;
+          padding: 3px 0px 3px 10px;
+          font-weight: normal;
+          font-size: 17px;
+          color: @text-color;
+      }
+
+      .key-input:focus {
+          padding: 2px 0px 2px 10px;
+          border: 2px solid @button-background-color-selected;
+      }
+  }
+
+  .test-key-panel {
+      margin-bottom: 1em;
+      display: flex;
+      flex-shrink: 0;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-around;
+
+      .test-key-label {
+        //   vertical-align: bottom;
+        color: @text-color-subtle;
+        margin-bottom: 0.3em;
+      }
+
+      .test-key-input {
+          background-color: @input-background-color;
+          border: 2px solid @input-border-color;
+          border-radius: @component-border-radius;
+          padding: 2px;
+      }
+
+      .test-key-input:focus {
+          border: 2px solid @button-background-color-selected;
+      }
+  }
+
+  .map-table-panel {
+      padding: 1em;
+      border: 1px solid @base-border-color;
+      background-color: @background-color-highlight;
+      border-radius: @component-border-radius;
+      overflow-x: auto;
+
+      .map-table{
+          clear: both;
+      }
+  }
+
+}

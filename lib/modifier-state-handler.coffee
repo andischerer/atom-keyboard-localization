@@ -66,6 +66,31 @@ class ModifierStateHandler
   keyUpEventListener: null
 
   ###*
+   * clear modifiers listener on editor blur and focus
+   * @type {event}
+  ###
+  clearModifierStateListener: null
+
+  constructor: ->
+    # clear modifiers on editor blur and focus
+    @clearModifierStateListener = () =>
+      @clearModifierState()
+    window.addEventListener 'blur', @clearModifierStateListener
+    window.addEventListener 'focus', @clearModifierStateListener
+
+  destroy: ->
+    window.removeEventListener 'blur', @clearModifierStateListener
+    window.removeEventListener 'focus', @clearModifierStateListener
+
+  clearModifierState: ->
+    if process.platform = 'win32'
+      @quitAltGrMode()
+    @hasShift = false
+    @hasCtrl = false
+    @hasAltGr = false
+    @hasAlt = false
+
+  ###*
    * Resets all the flags and removes onAltGrUp event listener.
   ###
   quitAltGrMode: ->
@@ -188,6 +213,16 @@ class ModifierStateHandler
   ###
   isCtrl: ->
     return @hasCtrl
+
+  ###*
+   * get the state of all modifiers
+   * @return {object}
+  ###
+  getState: ->
+    shift: @isShift()
+    altgr: @isAltGr()
+    alt: @isAlt()
+    ctrl: @isCtrl()
 
   ###*
    * debug function, prints modifiers and KeyboardEvent to console
