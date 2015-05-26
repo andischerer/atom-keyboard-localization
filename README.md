@@ -34,13 +34,14 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [Portuguese](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_portug.gif) (`pt_PT`) - untested
 * Latvian (`lv_LV`)
 
-
-Feel free to send me Issues/PRs so i can add more keymaps.
-
 ## Generate your own keymap
 You can generate your own localized key-translation-table for your keyboard layout.
-Open the generator `keybinding-generator\generate-keybindings.html` included in this package in Chrome(other Browsers may not work) and press all keys(with and without modifiers Shift/Alt) from your keyboard who differ from the US-Layout. Copy the generated JSON-keybindings and create a Json-File.
+The generator is available in from the command palette(`Keyboard Localization: Keymap Generator`)
+Generate your mapping by tapping every key in combination with modifiers from your keyboard who differ from the US-Layout.
+Copy the generated JSON-keybindings and create a Json-File.
 Then set the package setting `UseKeyboardLayoutFromPath` to your given filename(absolute path).
+
+Feel free to send me Issues/PRs so i can add more keymaps.
 
 ## Todo
 * add more foreign Keyboard-Layouts

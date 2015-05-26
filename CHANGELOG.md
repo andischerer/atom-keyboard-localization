@@ -1,3 +1,8 @@
+## v1.4.0
+* Fix Linux AltGr handling
+* Migration: Keymap Generator into Atom-View
+* added el_LA keyboard layout - thx [dagonar](https://github.com/dagonar)
+
 ## v1.3.1
 * reworked modifier-state-handler
 * added lv_LV keyboard layout - thx [tomaac](https://github.com/tomaac)
