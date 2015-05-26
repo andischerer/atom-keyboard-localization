@@ -95,9 +95,15 @@ class KeymapGeneratorView extends ScrollView
   onKeyUp: (event) ->
     originalEvent = util._extend({}, event.originalEvent)
     @modifierStateHandler.handleKeyEvent(originalEvent)
-    modifierState = @modifierStateHandler.getState()
-    @updateModifiers(modifierState)
     @addMapping()
+
+    # wait for quitAltGrMode
+    setTimeout(() =>
+      modifierState = @modifierStateHandler.getState()
+      @updateModifiers(modifierState)
+      console.log 'keyUp'
+    , 50)
+
 
   @deserialize: (options={}) ->
     new KeymapGeneratorView(options)
