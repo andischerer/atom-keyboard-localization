@@ -101,7 +101,6 @@ class KeymapGeneratorView extends ScrollView
     setTimeout(() =>
       modifierState = @modifierStateHandler.getState()
       @updateModifiers(modifierState)
-      console.log 'keyUp'
     , 50)
 
 

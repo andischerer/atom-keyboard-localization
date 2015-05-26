@@ -38,9 +38,6 @@ class KeymapTableView extends ScrollView
   getKeymap: ->
     return @mapTable
 
-  saveToFile: ->
-    console.log 'save'
-
   saveToClipboard: ->
     console.log 'clipboard'
     input = document.createElement('textarea')
@@ -51,8 +48,13 @@ class KeymapTableView extends ScrollView
     document.execCommand('Copy')
     input.remove()
 
+  ###
+  saveToFile: ->
+    console.log 'save'
+
   saveToGithub: ->
     console.log 'github'
+  ###
 
   onKeymapChange: (keymapChangeCallback) ->
     @keymapChangeCallback = keymapChangeCallback
