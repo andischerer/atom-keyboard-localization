@@ -35,6 +35,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * Latvian (`lv_LV`)
 
 ## Generate your own keymap
+![](https://raw.github.com/andischerer/atom-keyboard-localization/master/screenshots/keymap-generator.gif)
 You can generate your own localized key-translation-table for your keyboard layout.
 The generator is available in from the command palette(`Keyboard Localization: Keymap Generator`)
 Generate your mapping by tapping every key in combination with modifiers from your keyboard who differ from the US-Layout.
