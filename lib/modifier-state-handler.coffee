@@ -96,6 +96,7 @@ class ModifierStateHandler
   quitAltGrMode: ->
     @ctrlDown = @CtrlDownStates.NOT_YET_DETECTED
     @altGrDown = false
+    @hasAltGr = false
     @lastTimeStamp = null
     @lastKeyIdentifier = null
     document.removeEventListener 'keyup', @keyUpEventListener
@@ -157,11 +158,12 @@ class ModifierStateHandler
         else
           @lastKeyIdentifier = e.keyIdentifier
     if process.platform = 'linux'
-      if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
-        @altGrDown = true
-        @keyUpEventListener = (e) =>
-          @onAltGrUp(e)
-        document.addEventListener 'keyup', @keyUpEventListener
+      if !@altGrDown
+        if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
+          @altGrDown = true
+          @keyUpEventListener = (e) =>
+            @onAltGrUp(e)
+          document.addEventListener 'keyup', @keyUpEventListener
     else
       return
 

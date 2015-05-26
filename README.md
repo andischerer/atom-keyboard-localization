@@ -19,7 +19,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [German 105-key "QWERTZ"](http://en.wikipedia.org/wiki/File:KB_Germany.svg) (`de_DE`)
 * [German Neo-Layout](http://www.neo-layout.org/) (`de_DE-neo`)
 * [Spanish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_spanish.gif) (`es_ES`)
-* [Spanish Latin ](https://camo.githubusercontent.com/24b269423ef7dee64d74d30a22bd55d5aae5f2f0/68747470733a2f2f7777772e746572656e612e6f72672f616374697669746965732f6d756c74696c696e672f6d6c2d6d75612f746573742f696d672f6b62645f6c6174696e2e676966)(`es_LA`)
+* [Spanish Latin](http://mylingos.com/keyboards/images/latinamerican.gif) (`es_LA`)
 * [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
 * [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
 * [Canadian French](http://i.stack.imgur.com/ryQxs.png) (`fr_CA`)

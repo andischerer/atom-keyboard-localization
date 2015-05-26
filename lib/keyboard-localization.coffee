@@ -13,7 +13,7 @@ atom.deserializers.add
   name: 'KeymapGeneratorView'
   deserialize: (state) -> createKeymapGeneratorView(state)
 
-module.exports =
+KeyboardLocalization =
   pkg: 'keyboard-localization'
   keystrokeForKeyboardEventCb: null
   keymapLoader: null
@@ -116,3 +116,5 @@ module.exports =
     @modifierStateHandler.handleKeyEvent(newKeyEvent)
     @keyMapper.remap(newKeyEvent)
     return @orginalKeydownEvent(newKeyEvent)
+
+module.exports = KeyboardLocalization

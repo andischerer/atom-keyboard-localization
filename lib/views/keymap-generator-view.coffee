@@ -60,11 +60,11 @@ class KeymapGeneratorView extends ScrollView
     @keyMapper = null
     @modifierStateHandler = null
 
-  updateModifiers: ->
-    @ctrlView.setActive(@modifierStateHandler.isCtrl())
-    @altView.setActive(@modifierStateHandler.isAlt())
-    @shiftView.setActive(@modifierStateHandler.isShift())
-    @altgrView.setActive(@modifierStateHandler.isAltGr())
+  updateModifiers: (modifierState) ->
+    @ctrlView.setActive(modifierState.ctrl)
+    @altView.setActive(modifierState.alt)
+    @shiftView.setActive(modifierState.shift)
+    @altgrView.setActive(modifierState.altgr)
 
   addMapping: ->
     down = @keyDownView.getKey()
@@ -84,8 +84,9 @@ class KeymapGeneratorView extends ScrollView
 
     originalEvent = util._extend({}, event.originalEvent)
     @modifierStateHandler.handleKeyEvent(originalEvent)
-    @updateModifiers()
-    @keyDownView.setKey(originalEvent, @modifierStateHandler.getState())
+    modifierState = @modifierStateHandler.getState()
+    @updateModifiers(modifierState)
+    @keyDownView.setKey(originalEvent, modifierState)
 
   onKeyPress: (event) ->
     originalEvent = util._extend({}, event.originalEvent)
@@ -94,7 +95,8 @@ class KeymapGeneratorView extends ScrollView
   onKeyUp: (event) ->
     originalEvent = util._extend({}, event.originalEvent)
     @modifierStateHandler.handleKeyEvent(originalEvent)
-    @updateModifiers()
+    modifierState = @modifierStateHandler.getState()
+    @updateModifiers(modifierState)
     @addMapping()
 
   @deserialize: (options={}) ->
