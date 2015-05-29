@@ -39,6 +39,7 @@ KeyboardLocalization =
         'lv_LV'
         'nb_NO'
         'pl_PL'
+        'pt_BR'
         'pt_PT'
         'ro_RO'
         'sl_SL'

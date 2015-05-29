@@ -33,6 +33,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [Italian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_italian.gif) (`it_IT`)
 * [Portuguese](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_portug.gif) (`pt_PT`) - untested
 * Latvian (`lv_LV`)
+* [Portuguese Brazilian (ABNT2)](http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/KB_Portuguese_Brazil.svg/1280px-KB_Portuguese_Brazil.svg.png) (`pt_BR`)
 
 ## Generate your own keymap
 ![](https://raw.github.com/andischerer/atom-keyboard-localization/master/screenshots/keymap-generator.gif)

@@ -1,3 +1,6 @@
+## v1.4.1
+* added pt_BR keyboard layout - thx [juracy](https://github.com/juracy)
+
 ## v1.4.0
 * Fix Linux AltGr handling
 * Migration: Keymap Generator into Atom-View
