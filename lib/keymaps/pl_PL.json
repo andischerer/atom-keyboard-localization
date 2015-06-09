@@ -1,145 +1,37 @@
 {
-    "48": {
-        "shifted": 61,
-        "alted": 733
-    },
-    "49": {
-        "shifted": 33,
-        "alted": 126
-    },
-    "50": {
-        "shifted": 34,
-        "alted": 711
-    },
-    "51": {
-        "shifted": 35,
-        "alted": 94
-    },
-    "52": {
-        "shifted": 164,
-        "alted": 728
-    },
-    "53": {
-        "shifted": 37,
-        "alted": 176
-    },
-    "54": {
-        "shifted": 38,
-        "alted": 731
-    },
-    "55": {
-        "shifted": 47,
-        "alted": 96
-    },
-    "56": {
-        "shifted": 40,
-        "alted": 183
-    },
-    "57": {
-        "shifted": 41,
-        "alted": 180
-    },
     "65": {
+        "alted": 261,
         "altshifted": 260
     },
-    "66": {
-        "alted": 123
-    },
-    "67": {
-        "altshifted": 262
-    },
-    "68": {
-        "alted": 272
-    },
     "69": {
+        "alted": 281,
         "altshifted": 280
     },
-    "77": {
-        "alted": 167
+    "76": {
+        "alted": 322,
+        "altshifted": 321
     },
     "78": {
-        "alted": 125,
+        "alted": 324,
         "altshifted": 323
     },
     "79": {
+        "alted": 243,
         "altshifted": 211
     },
-    "81": {
-        "alted": 92
-    },
     "83": {
-        "alted": 273,
+        "alted": 347,
         "altshifted": 346
     },
     "85": {
         "alted": 8364
     },
-    "86": {
-        "alted": 64
-    },
-    "87": {
-        "alted": 166
-    },
     "88": {
+        "alted": 378,
         "altshifted": 377
     },
     "90": {
+        "alted": 380,
         "altshifted": 379
-    },
-    "186": {
-        "unshifted": 322,
-        "shifted": 321,
-        "alted": 36
-    },
-    "187": {
-        "unshifted": 43,
-        "shifted": 63,
-        "alted": 168
-    },
-    "188": {
-        "unshifted": 44,
-        "shifted": 59,
-        "alted": 60
-    },
-    "189": {
-        "unshifted": 45,
-        "shifted": 95
-    },
-    "190": {
-        "unshifted": 46,
-        "shifted": 58,
-        "alted": 62
-    },
-    "191": {
-        "unshifted": 39,
-        "shifted": 42,
-        "alted": 184
-    },
-    "192": {
-        "unshifted": 731,
-        "shifted": 183
-    },
-    "219": {
-        "unshifted": 380,
-        "shifted": 324,
-        "alted": 247
-    },
-    "220": {
-        "unshifted": 243,
-        "shifted": 378
-    },
-    "221": {
-        "unshifted": 347,
-        "shifted": 263,
-        "alted": 215
-    },
-    "222": {
-        "unshifted": 261,
-        "shifted": 281,
-        "alted": 223
-    },
-    "226": {
-        "unshifted": 60,
-        "shifted": 62
     }
 }
