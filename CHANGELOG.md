@@ -1,3 +1,6 @@
+## v1.4.3
+* fixed pl_PL keymap
+
 ## v1.4.2
 * fixed pl_PL keymap - thx [logity](https://github.com/logity), [macocha](https://github.com/macocha)
 
