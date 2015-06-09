@@ -1,3 +1,6 @@
+## v1.4.2
+* fixed pl_PL keymap - thx [logity](https://github.com/logity), [macocha](https://github.com/macocha)
+
 ## v1.4.1
 * added pt_BR keyboard layout - thx [juracy](https://github.com/juracy)
 

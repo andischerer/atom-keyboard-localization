@@ -23,7 +23,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
 * [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
 * [Canadian French](http://i.stack.imgur.com/ryQxs.png) (`fr_CA`)
-* [Polish Programmer](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_polish.gif) (`pl_PL`)
+* [Polish Programmer](http://upload.wikimedia.org/wikipedia/commons/6/6e/Polish_programmer%27s_layout.PNG) (`pl_PL`)
 * [Danish](http://fontmeme.com/images/danish-keyboard-550x183.png) (`da_DK`) - untested
 * [Norwegian](http://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/KB_Norway.svg/2000px-KB_Norway.svg.png) (`nb_NO`) - untested
 * [Swedish](http://frontype.com/keyboarding/540px-Computer-keyboard-Sweden.svg.png) (`sv_SE`) - untested
