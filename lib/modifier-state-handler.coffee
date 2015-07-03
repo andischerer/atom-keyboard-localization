@@ -83,7 +83,7 @@ class ModifierStateHandler
     window.removeEventListener 'focus', @clearModifierStateListener
 
   clearModifierState: ->
-    if process.platform = 'win32'
+    if process.platform == 'win32'
       @quitAltGrMode()
     @hasShift = false
     @hasCtrl = false
@@ -109,11 +109,11 @@ class ModifierStateHandler
    * @param {!KeyboardEvent} e keyboard event object
   ###
   onAltGrUp: (e) ->
-    if process.platform = 'win32'
+    if process.platform == 'win32'
       key = e.keyCode || e.which
       if @altGrDown && key == KeyEvent.DOM_VK_CONTROL
         @quitAltGrMode()
-    if process.platform = 'linux'
+    if process.platform == 'linux'
       if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
         @quitAltGrMode()
 
@@ -130,7 +130,7 @@ class ModifierStateHandler
    * @param {!KeyboardEvent} e keyboard event object
   ###
   detectAltGrKeyDown: (e) ->
-    if process.platform = 'win32'
+    if process.platform == 'win32'
       if !@altGrDown
         if @ctrlDown != @CtrlDownStates.DETECTED_AND_IGNORED && e.ctrlKey && e.keyIdentifier == 'Control'
           @ctrlDown = @CtrlDownStates.DETECTED
@@ -157,7 +157,7 @@ class ModifierStateHandler
           @quitAltGrMode()
         else
           @lastKeyIdentifier = e.keyIdentifier
-    if process.platform = 'linux'
+    if process.platform == 'linux'
       if !@altGrDown
         if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
           @altGrDown = true
