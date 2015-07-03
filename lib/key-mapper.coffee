@@ -33,6 +33,7 @@ class KeyMapper
           charCode = translation.shifted
           keyDownEvent.shiftKey = false
         else if translation.alted? && @modifierStateHandler.isAltGr()
+          charCode = translation.alted
           # do not remove alt+ctrl states for linux
           # TODO: what about darwin?
           if process.platform != 'linux'
