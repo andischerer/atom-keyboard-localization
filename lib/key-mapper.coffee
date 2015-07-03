@@ -36,7 +36,6 @@ class KeyMapper
           # do not remove alt+ctrl states for linux
           # TODO: what about darwin?
           if process.platform != 'linux'
-            console.log('removing ctrl and alt modifiers')
             keyDownEvent.altKey = false
             keyDownEvent.ctrlKey = false
         else if translation.unshifted?
