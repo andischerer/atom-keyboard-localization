@@ -1,3 +1,6 @@
+## 1.4.6
+* fixed #43 accent keys work as expected
+
 ## 1.4.5
 * fixed #43 autoflow and code folding being triggered
 
