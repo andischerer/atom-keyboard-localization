@@ -1,3 +1,6 @@
+## 1.4.5
+* fixed #43 autoflow and code folding being triggered
+
 ## 1.4.4
 * fixed #43 Two characters when entered only one
 
