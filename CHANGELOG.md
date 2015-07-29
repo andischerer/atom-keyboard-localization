@@ -1,3 +1,6 @@
+## 1.4.4
+* fixed #43 Two characters when entered only one
+
 ## v1.4.3
 * fixed pl_PL keymap
 
