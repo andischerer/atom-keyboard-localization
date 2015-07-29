@@ -77,10 +77,6 @@ KeyboardLocalization =
       @keyMapper.setKeymap(@keymapLoader.getKeymap())
       @keyMapper.setModifierStateHandler(@modifierStateHandler)
 
-      # KeymapManager no-binding-found subscription
-      @didFailToMatchBinding = atom.keymaps.onDidFailToMatchBinding =>
-        @keyMapper.didFailToMatchBinding(event)
-
       # Hijack KeymapManager
       # @TODO: Evil hack. Find an better way ...
       @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
@@ -89,11 +85,8 @@ KeyboardLocalization =
 
   deactivate: ->
     if @keymapLoader.isLoaded()
-
       atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
       @orginalKeydownEvent = null
-
-      @didFailToMatchBinding.dispose()
 
     @changeUseKeyboardLayout.dispose()
     @changeUseKeyboardLayoutFromPath.dispose()
@@ -105,17 +98,9 @@ KeyboardLocalization =
     @keyMapper = null
     @keymapGeneratorView = null
 
-  createNewKeyDownEvent: (event) ->
-    keyDownEvent = util._extend({} , event)
-    keyDownEvent.currentTarget = null
-    keyDownEvent.eventPhase = 0
-    keyDownEvent.keyTranslated = false
-    return keyDownEvent
-
   onKeyDown: (event, cb) ->
-    newKeyEvent = @createNewKeyDownEvent(event)
-    @modifierStateHandler.handleKeyEvent(newKeyEvent)
-    @keyMapper.remap(newKeyEvent)
-    return @orginalKeydownEvent(newKeyEvent)
+    @modifierStateHandler.handleKeyEvent(event)
+    @keyMapper.remap(event)
+    return @orginalKeydownEvent(event)
 
 module.exports = KeyboardLocalization
