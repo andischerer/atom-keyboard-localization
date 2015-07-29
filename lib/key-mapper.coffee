@@ -42,6 +42,7 @@ class KeyMapper
       Object.defineProperty(event, 'keyIdentifier', get: -> charCodeToKeyIdentifier(charCode))
       Object.defineProperty(event, 'keyCode', get: -> charCode)
       Object.defineProperty(event, 'which', get: -> charCode)
+      event.preventDefault()
 
   remap: (event) ->
     @translateKeyBinding(event)
