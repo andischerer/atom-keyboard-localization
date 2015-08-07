@@ -1,3 +1,8 @@
+## 1.4.7
+* fixes/refactoring for #49 #47 #46 #39
+* fixed fr_FR keycode 220 bug - thx [parleur](https://github.com/parleur)
+* added ja_JP keyboard layout - thx [nakashk](https://github.com/nakashk)
+
 ## 1.4.6
 * fixed #43 accent keys work as expected
 
