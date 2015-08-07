@@ -9,3 +9,9 @@ exports.charCodeFromKeyIdentifier = (keyIdentifier) ->
 
 exports.charCodeToKeyIdentifier = (charCode) ->
   return 'U+' + padZero(charCode.toString(16).toUpperCase(), 4)
+
+exports.vimModeActive = (editor) ->
+  if editor? and 'vim-mode' in editor.classList
+    if 'normal-mode' in editor.classList or 'visual-mode' in editor.classList
+      return true
+  return false
