@@ -32,6 +32,7 @@ class ModifierStateHandler
   hasCtrl: false
   hasAltGr: false
   hasAlt: false
+  hasCmd: false
 
   ###*
    * Constant used for checking the interval between Control keydown event and Alt keydown event.
@@ -83,12 +84,13 @@ class ModifierStateHandler
     window.removeEventListener 'focus', @clearModifierStateListener
 
   clearModifierState: ->
-    if process.platform = 'win32'
+    if process.platform == 'win32'
       @quitAltGrMode()
     @hasShift = false
     @hasCtrl = false
     @hasAltGr = false
     @hasAlt = false
+    @hasCmd = false
 
   ###*
    * Resets all the flags and removes onAltGrUp event listener.
@@ -106,14 +108,14 @@ class ModifierStateHandler
    * until we receive one with ctrl key code. Once detected, reset
    * all the flags and also remove this event listener.
    *
-   * @param {!KeyboardEvent} e keyboard event object
+   * @param {KeyboardEvent} e keyboard event object
   ###
   onAltGrUp: (e) ->
-    if process.platform = 'win32'
+    if process.platform == 'win32'
       key = e.keyCode || e.which
       if @altGrDown && key == KeyEvent.DOM_VK_CONTROL
         @quitAltGrMode()
-    if process.platform = 'linux'
+    if process.platform == 'linux'
       if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
         @quitAltGrMode()
 
@@ -127,10 +129,10 @@ class ModifierStateHandler
    * key, then either keyIdentifier === "Control" or keyIdentifier === "Alt" is repeatedly sent
    * but not alternately.
    *
-   * @param {!KeyboardEvent} e keyboard event object
+   * @param {KeyboardEvent} e keyboard event object
   ###
   detectAltGrKeyDown: (e) ->
-    if process.platform = 'win32'
+    if process.platform == 'win32'
       if !@altGrDown
         if @ctrlDown != @CtrlDownStates.DETECTED_AND_IGNORED && e.ctrlKey && e.keyIdentifier == 'Control'
           @ctrlDown = @CtrlDownStates.DETECTED
@@ -138,7 +140,7 @@ class ModifierStateHandler
           # We get here if the user is holding down left/right Control key. Set it to false
           # so that we don't misidentify the combination of Ctrl and Alt keys as AltGr key.
           @ctrlDown = @CtrlDownStates.DETECTED_AND_IGNORED
-        else if @ctrlDown == @CtrlDownStates.DETECTED && e.altKey && e.ctrlKey && e.keyIdentifier == 'Alt' && e.timeStamp - @lastTimeStamp < @MAX_INTERVAL_FOR_CTRL_ALT_KEYS && e.keyLocation == 2
+        else if @ctrlDown == @CtrlDownStates.DETECTED && e.altKey && e.ctrlKey && e.keyIdentifier == 'Alt' && e.timeStamp - @lastTimeStamp < @MAX_INTERVAL_FOR_CTRL_ALT_KEYS && (e.location == 2 or e.keyLocation == 2)
           @altGrDown = true
           @lastKeyIdentifier = 'Alt'
           @keyUpEventListener = (e) =>
@@ -157,7 +159,7 @@ class ModifierStateHandler
           @quitAltGrMode()
         else
           @lastKeyIdentifier = e.keyIdentifier
-    if process.platform = 'linux'
+    if process.platform == 'linux'
       if !@altGrDown
         if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
           @altGrDown = true
@@ -170,7 +172,7 @@ class ModifierStateHandler
   ###*
    * Handle key event
    *
-   * @param {!KeyboardEvent} e keyboard event object
+   * @param {KeyboardEvent} e keyboard event object
   ###
   handleKeyEvent: (e) ->
     @detectAltGrKeyDown(e)
@@ -184,13 +186,12 @@ class ModifierStateHandler
       @hasAltGr = @altGrDown
       @hasAlt = e.altKey
     else
-      @hasCtrl = if process.platform != 'darwin' then e.ctrlKey else e.metaKey
+      @hasCtrl = e.ctrlKey
       @hasAltGr = e.altKey
       @hasAlt = e.altKey
 
     @hasShift = e.shiftKey
-
-    # @logModifiers(e)
+    @hasCmd = e.metaKey
 
   ###*
    * determine if shift key is pressed
@@ -217,6 +218,13 @@ class ModifierStateHandler
     return @hasCtrl
 
   ###*
+   * determine if cmd key is pressed
+  ###
+  isCmd: ->
+    return @hasCmd
+
+
+  ###*
    * get the state of all modifiers
    * @return {object}
   ###
@@ -225,21 +233,26 @@ class ModifierStateHandler
     altgr: @isAltGr()
     alt: @isAlt()
     ctrl: @isCtrl()
+    cmd: @isCmd()
 
   ###*
-   * debug function, prints modifiers and KeyboardEvent to console
-   * @param {event} e
+   * get the modifier sequence string.
+   * Additionally with a character
+   * @param {String} character
+   * @return {String}
   ###
-  logModifiers: (e) ->
-    keyDescriptor = []
+  getStrokeSequence: (character) ->
+    sequence = []
     if @isCtrl()
-      keyDescriptor.push('ctrl')
+      sequence.push('ctrl')
     if @isAlt()
-      keyDescriptor.push('alt')
+      sequence.push('alt')
     if @isAltGr()
-      keyDescriptor.push('altgr')
+      sequence.push('altgr')
     if @isShift()
-      keyDescriptor.push('shift')
-
-    if keyDescriptor.length > 0
-      console.log('%c ' + keyDescriptor.join(' - ') + ' ', 'background: #222; color: #bada55', e)
+      sequence.push('shift')
+    if @isCmd()
+      sequence.push('cmd')
+    if character
+      sequence.push(character)
+    return sequence.join('-')

@@ -25,16 +25,10 @@ class KeyMapper
       if translation = @translationTable[identifier]
         if translation.altshifted? && @modifierStateHandler.isShift() && @modifierStateHandler.isAltGr()
           charCode = translation.altshifted
-          Object.defineProperty(event, 'altKey', get: -> false)
-          Object.defineProperty(event, 'ctrlKey', get: -> false)
-          Object.defineProperty(event, 'shiftKey', get: -> false)
         else if translation.shifted? && @modifierStateHandler.isShift()
           charCode = translation.shifted
-          Object.defineProperty(event, 'shiftKey', get: -> false)
         else if translation.alted? && @modifierStateHandler.isAltGr()
           charCode = translation.alted
-          Object.defineProperty(event, 'altKey', get: -> false)
-          Object.defineProperty(event, 'ctrlKey', get: -> false)
         else if translation.unshifted?
           charCode = translation.unshifted
 
@@ -42,11 +36,22 @@ class KeyMapper
       Object.defineProperty(event, 'keyIdentifier', get: -> charCodeToKeyIdentifier(charCode))
       Object.defineProperty(event, 'keyCode', get: -> charCode)
       Object.defineProperty(event, 'which', get: -> charCode)
-      unless translation.accent
+      Object.defineProperty(event, 'translated', get: -> true)
+
+      # reset event modifiers
+      Object.defineProperty(event, 'altKey', get: -> false)
+      Object.defineProperty(event, 'ctrlKey', get: -> false)
+      Object.defineProperty(event, 'shiftKey', get: -> false)
+      Object.defineProperty(event, 'metaKey', get: -> false)
+
+      if (@modifierStateHandler.isAltGr())
         event.preventDefault()
 
   remap: (event) ->
     @translateKeyBinding(event)
+    translated = event.translated == true
+    delete event.translated
+    return translated
 
 keyMapper = null
 

@@ -2,6 +2,8 @@ util = require('util')
 KeymapLoader = require './keymap-loader'
 KeyMapper = require './key-mapper'
 ModifierStateHandler = require './modifier-state-handler'
+{vimModeActive} = require './helpers'
+
 KeymapGeneratorView = null
 KeymapGeneratorUri = 'atom://keyboard-localization/keymap-manager'
 
@@ -100,7 +102,13 @@ KeyboardLocalization =
 
   onKeyDown: (event, cb) ->
     @modifierStateHandler.handleKeyEvent(event)
-    @keyMapper.remap(event)
-    return @orginalKeydownEvent(event)
+    if @keyMapper.remap(event)
+      character = String.fromCharCode(event.keyCode)
+      if @modifierStateHandler.isAltGr() or vimModeActive(event.target)
+        return character
+      else
+        return @modifierStateHandler.getStrokeSequence(character)
+    else
+      return @orginalKeydownEvent(event)
 
 module.exports = KeyboardLocalization
