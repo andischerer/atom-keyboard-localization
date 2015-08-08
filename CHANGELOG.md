@@ -1,6 +1,6 @@
 ## 1.4.7
 * fixes/refactoring for #49 #47 #46 #39
-* fixed keycode 220 bug in es_ES, fr_FR, nb_NO, sv_SE
+* fixed keycode 220 bug in es_ES, fr_FR, nb_NO, sv_SE - see pr #42
 * added ja_JP keyboard layout - thx [nakashk](https://github.com/nakashk)
 
 ## 1.4.6
