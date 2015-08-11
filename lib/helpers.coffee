@@ -12,6 +12,7 @@ exports.charCodeToKeyIdentifier = (charCode) ->
 
 exports.vimModeActive = (editor) ->
   if editor? and 'vim-mode' in editor.classList
-    if 'normal-mode' in editor.classList or 'visual-mode' in editor.classList
-      return true
+    return true if 'operator-pending-mode' in editor.classList
+    return true if 'normal-mode' in editor.classList
+    return true if 'visual-mode' in editor.classList
   return false
