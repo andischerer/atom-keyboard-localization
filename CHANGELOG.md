@@ -1,3 +1,8 @@
+## 1.4.8
+* fix for vim motions
+* added cs_CZ-qwerty keyboard layout - thx [ivoszz](https://github.com/ivoszz)
+* fixed #56
+
 ## 1.4.7
 * fixes/refactoring for #49 #47 #46 #39
 * fixed keycode 220 bug in es_ES, fr_FR, nb_NO, sv_SE - see pr #42
