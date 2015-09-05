@@ -40,22 +40,29 @@
         "alted": 8747
     },
     "68": {
-        "alted": 8706
+        "alted": 8706,
+        "altshifted":64258
     },
     "69": {
         "alted": 8364
     },
     "70": {
-        "alted": 383
+        "alted": 402,
+        "altshifted":8225
     },
     "71": {
-        "alted": 64
+        "alted": 64,
+        "altshifted":44
     },
     "72": {
-        "alted": 170
+        "alted": 170,
+        "altshifted":183
     },
     "77": {
         "alted": 181
+    },
+    "83":{
+        "altshifted":64257
     },
     "186": {
         "unshifted": 252,
