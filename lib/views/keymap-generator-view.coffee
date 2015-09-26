@@ -1,5 +1,5 @@
 {Disposable} = require 'atom'
-{ScrollView, TextEditorView} = require 'atom-space-pen-views'
+{ScrollView, TextEditorView, $} = require 'atom-space-pen-views'
 util = require 'util'
 
 KeyMapper = require '../key-mapper'
@@ -82,7 +82,7 @@ class KeymapGeneratorView extends ScrollView
     @keyDownView.clear()
     @keyPressView.clear()
 
-    originalEvent = util._extend({}, event.originalEvent)
+    originalEvent = $.extend({}, event.originalEvent)
     @modifierStateHandler.handleKeyEvent(originalEvent)
     modifierState = @modifierStateHandler.getState()
     @updateModifiers(modifierState)
