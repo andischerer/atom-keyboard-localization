@@ -28,6 +28,7 @@ KeyboardLocalization =
       type: 'string'
       default: 'de_DE'
       enum: [
+        'ch_DE'
         'cs_CZ-qwerty'
         'da_DK'
         'de_DE-neo'
@@ -35,6 +36,7 @@ KeyboardLocalization =
         'es_ES'
         'es_LA'
         'fr_BE'
+        'fr_CH'
         'fr_FR'
         'fr_CA'
         'hu_HU'

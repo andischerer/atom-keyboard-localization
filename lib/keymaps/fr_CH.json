@@ -1,0 +1,121 @@
+{
+    "48": {
+        "shifted": 61,
+        "alted": 8800
+    },
+    "49": {
+        "shifted": 33,
+        "alted": 177
+    },
+    "50": {
+        "shifted": 34,
+        "alted": 8220
+    },
+    "51": {
+        "shifted": 167,
+        "alted": 35
+    },
+    "52": {
+        "shifted": 36
+    },
+    "53": {
+        "shifted": 37
+    },
+    "54": {
+        "shifted": 38
+    },
+    "55": {
+        "shifted": 47,
+        "alted": 124
+    },
+    "56": {
+        "shifted": 40,
+        "alted": 123
+    },
+    "57": {
+        "shifted": 41,
+        "alted": 125
+    },
+    "66": {
+        "alted": 8747
+    },
+    "68": {
+        "alted": 8706,
+        "altshifted":64258
+    },
+    "69": {
+        "alted": 8364
+    },
+    "70": {
+        "alted": 402,
+        "altshifted":8225
+    },
+    "71": {
+        "alted": 64,
+        "altshifted":44
+    },
+    "72": {
+        "alted": 170,
+        "altshifted":183
+    },
+    "77": {
+        "alted": 181
+    },
+    "83":{
+        "altshifted":64257
+    },
+    "186": {
+        "unshifted": 252,
+        "shifted": 220
+    },
+    "187": {
+        "unshifted": 43,
+        "shifted": 42,
+        "alted": 126
+    },
+    "188": {
+        "unshifted": 44,
+        "shifted": 59
+    },
+    "189": {
+        "unshifted": 45,
+        "shifted": 95
+    },
+    "190": {
+        "unshifted": 46,
+        "shifted": 58
+    },
+    "191": {
+        "unshifted": 35,
+        "shifted": 39
+    },
+    "192": {
+        "unshifted": 246,
+        "shifted": 214
+    },
+    "219": {
+        "unshifted": 223,
+        "shifted": 63,
+        "alted": 92
+    },
+    "220": {
+        "unshifted": 94,
+        "shifted": 176,
+        "alted": 124,
+        "accent": true
+    },
+    "221": {
+        "unshifted": 180,
+        "shifted": 96,
+        "accent": true
+    },
+    "222": {
+        "unshifted": 228,
+        "shifted": 196
+    },
+    "226": {
+        "unshifted": 60,
+        "shifted": 62,
+        "alted": 124
+    }
+}
