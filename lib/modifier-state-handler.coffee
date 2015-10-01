@@ -186,12 +186,12 @@ class ModifierStateHandler
       @hasAltGr = @altGrDown
       @hasAlt = e.altKey
     else
-      @hasCtrl = e.ctrlKey
+      @hasCtrl = e.ctrlKey? && e.ctrlKey == true
       @hasAltGr = e.altKey
       @hasAlt = e.altKey
 
     @hasShift = e.shiftKey
-    @hasCmd = e.metaKey
+    @hasCmd = e.metaKey? && e.metaKey == true
 
   ###*
    * determine if shift key is pressed
