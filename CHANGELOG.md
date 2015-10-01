@@ -1,3 +1,11 @@
+## 1.4.9
+* fixed #64
+* fixed #67
+* added de_CH keyboard layout - thx [AlexRRR](https://github.com/AlexRRR)
+* added fr_CH Keyboard layout - thx [gpasa](https://github.com/gpasa)
+* fixed #65. Replace `util._extend` with `jQuery.extend` - thx [zambotn](https://github.com/zambotn)
+* updated atom-space-pen-views dependency
+
 ## 1.4.8
 * fix for vim motions
 * added cs_CZ-qwerty keyboard layout - thx [ivoszz](https://github.com/ivoszz)
