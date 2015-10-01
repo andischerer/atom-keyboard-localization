@@ -2,7 +2,7 @@
   "name": "keyboard-localization",
   "main": "./lib/keyboard-localization",
   "version": "1.4.8",
-  "description": "Foreign language keyboard support for atom.",
+  "description": "Support for various regional keyboard layouts",
   "repository": "https://github.com/andischerer/atom-keyboard-localization.git",
   "license": "MIT",
   "engines": {

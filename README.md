@@ -9,7 +9,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 
 ## Whats working
 * Prevent default keybindings from being fired
-* Keybindings in your foreign keyboard layout
+* Keybindings in your local keyboard layout
 * AltGr-Key
 * vim-mode keybindings
 * tested on Windows and Linux
@@ -22,6 +22,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [Spanish Latin](http://mylingos.com/keyboards/images/latinamerican.gif) (`es_LA`)
 * [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
 * [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
+* [Swiss German](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/KB_Swiss.svg/450px-KB_Swiss.svg.png) (`de_CH`)
 * [Swiss French](https://support.apple.com/en-us/HT201794)(`fr_CH` fr_ML)
 * [Canadian French](http://i.stack.imgur.com/ryQxs.png) (`fr_CA`)
 * [Polish Programmer](http://upload.wikimedia.org/wikipedia/commons/6/6e/Polish_programmer%27s_layout.PNG) (`pl_PL`)
