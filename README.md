@@ -20,6 +20,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [German Neo-Layout](http://www.neo-layout.org/) (`de_DE-neo`)
 * [Spanish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_spanish.gif) (`es_ES`)
 * [Spanish Latin](http://mylingos.com/keyboards/images/latinamerican.gif) (`es_LA`)
+* [Finnish](http://i.stack.imgur.com/leHzl.png) (`fi_FI`)
 * [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
 * [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
 * [Swiss German](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/KB_Swiss.svg/450px-KB_Swiss.svg.png) (`de_CH`)
