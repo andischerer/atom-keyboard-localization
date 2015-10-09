@@ -39,6 +39,7 @@ KeyboardLocalization =
         'fr_CH'
         'fr_FR'
         'fr_CA'
+        'fi_FI'
         'hu_HU'
         'it_IT'
         'ja_JP'
