@@ -35,6 +35,7 @@ KeyboardLocalization =
         'de_DE'
         'es_ES'
         'es_LA'
+        'et_EE'
         'fr_BE'
         'fr_CH'
         'fr_FR'
