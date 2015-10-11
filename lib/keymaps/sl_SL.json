@@ -1,5 +1,6 @@
 {
     "48": {
+        "accent": true,
         "shifted": 61,
         "alted": 733
     },
@@ -8,22 +9,27 @@
         "alted": 126
     },
     "50": {
+        "accent": true,
         "shifted": 34,
         "alted": 711
     },
     "51": {
+        "accent": true,
         "shifted": 35,
         "alted": 94
     },
     "52": {
+        "accent": true,
         "shifted": 36,
         "alted": 728
     },
     "53": {
+        "accent": true,
         "shifted": 37,
         "alted": 176
     },
     "54": {
+        "accent": true,
         "shifted": 38,
         "alted": 731
     },
@@ -32,10 +38,12 @@
         "alted": 96
     },
     "56": {
+        "accent": true,
         "shifted": 40,
         "alted": 729
     },
     "57": {
+        "accent": true,
         "shifted": 41,
         "alted": 180
     },
@@ -77,6 +85,7 @@
         "shifted": 268
     },
     "187": {
+        "accent": true,
         "unshifted": 43,
         "shifted": 42,
         "alted": 184
@@ -96,6 +105,7 @@
         "alted": 62
     },
     "191": {
+        "accent": true,
         "unshifted": 39,
         "shifted": 63,
         "alted": 168

@@ -33,7 +33,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [Swedish](http://frontype.com/keyboarding/540px-Computer-keyboard-Sweden.svg.png) (`sv_SE`)
 * [Hungarian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_hungary.gif) (`hu_HU`) - untested
 * [Romanian](http://upload.wikimedia.org/wikipedia/commons/f/f0/Romanian-keyboard-layout.png) (`ro_RO`) - untested
-* [Slovenian](http://smotko.si/assets/pics/keyboard.png) (`sl_SL`) - untested
+* [Slovenian](http://smotko.si/assets/pics/keyboard.png) (`sl_SL`)
 * [Italian](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_italian.gif) (`it_IT`)
 * [Portuguese](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_portug.gif) (`pt_PT`) - untested
 * Latvian (`lv_LV`)

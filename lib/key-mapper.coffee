@@ -44,7 +44,7 @@ class KeyMapper
       Object.defineProperty(event, 'shiftKey', get: -> false)
       Object.defineProperty(event, 'metaKey', get: -> false)
 
-      if (@modifierStateHandler.isAltGr())
+      if (@modifierStateHandler.isAltGr() and not translation.accent)
         event.preventDefault()
 
   remap: (event) ->
