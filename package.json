@@ -1,7 +1,7 @@
 {
   "name": "keyboard-localization",
   "main": "./lib/keyboard-localization",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "Support for various regional keyboard layouts",
   "repository": "https://github.com/andischerer/atom-keyboard-localization.git",
   "license": "MIT",
