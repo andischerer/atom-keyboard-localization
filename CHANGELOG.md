@@ -1,3 +1,11 @@
+## 1.4.10
+* fixed danish keyboard layout - thx [nesizer]((https://github.com/nesizer)
+* added finish keyboard layout - thx [kurkku]((https://github.com/kurkku)
+* added estonian keyboard layout - thx [Ingramz]((https://github.com/Ingramz)
+* added french bépo keyboard layout - thx [Dragnalith]((https://github.com/Dragnalith)
+* fixed composing keys in sl_SL keyboard layout #55
+* fixed pt_PT keycode 220 bug
+
 ## 1.4.9
 * fixed #64
 * fixed #67
