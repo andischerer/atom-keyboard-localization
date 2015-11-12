@@ -51,7 +51,7 @@
     "186": {
         "unshifted": 36,
         "shifted": 42,
-        "alted": 93 
+        "alted": 93
     },
     "187": {
         "unshifted": 61,
@@ -75,8 +75,9 @@
         "shifted": 47
     },
     "192": {
-        "unshifted": 249,
+        "accent": true,
         "shifted": 37,
+        "unshifted": 249,
         "alted": 180
     },
     "219": {
@@ -85,8 +86,10 @@
 	"alted": 91
     },
     "220": {
-        "shifted": 62,
-        "alted": 92
+        "accent": true,
+        "alted": 96,
+        "shifted": 163,
+        "unshifted": 181
     },
     "221": {
         "unshifted": 94,
