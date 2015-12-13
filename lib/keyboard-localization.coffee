@@ -52,6 +52,7 @@ KeyboardLocalization =
         'pt_PT'
         'ro_RO'
         'sl_SL'
+        'sr_RS'
         'sv_SE'
       ]
       description: 'Pick your locale'
