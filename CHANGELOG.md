@@ -1,3 +1,8 @@
+## 1.4.11
+* fixed fr_FR layout
+* fixed fr_BE layout
+* added sr_RS layout
+
 ## 1.4.10
 * fixed danish keyboard layout - thx [nesizer]((https://github.com/nesizer)
 * added finish keyboard layout - thx [kurkku]((https://github.com/kurkku)
