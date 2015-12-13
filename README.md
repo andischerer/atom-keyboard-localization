@@ -48,7 +48,7 @@ You can generate your own localized key-translation-table for your keyboard layo
 The generator is available in from the command palette(`Keyboard Localization: Keymap Generator`)
 Generate your mapping by tapping every key in combination with modifiers from your keyboard who differ from the US-Layout.
 Copy the generated JSON-keybindings and create a Json-File.
-Then set the package setting `UseKeyboardLayoutFromPath` to your given filename(absolute path).
+Then set the package setting `useKeyboardLayoutFromPath` to your given filename(absolute path).
 
 Feel free to send me Issues/PRs so i can add more keymaps.
 
