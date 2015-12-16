@@ -110,11 +110,13 @@
     },
     "186": {
         "alted": 91,
+        "altshifted": 123,
         "unshifted": 232,
         "shifted": 233
     },
     "187": {
         "alted": 93,
+        "altshifted": 125,
         "unshifted": 43,
         "shifted": 42
     },
