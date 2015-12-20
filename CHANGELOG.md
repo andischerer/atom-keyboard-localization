@@ -1,3 +1,9 @@
+## 1.4.12
+* add compatibility for vim-mode-plus package
+* added fi_FI-mac layout
+* Fixed curly braces for it_IT layout
+* onKeyDown event check
+
 ## 1.4.11
 * fixed fr_FR layout
 * fixed fr_BE layout

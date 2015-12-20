@@ -11,7 +11,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * Prevent default keybindings from being fired
 * Keybindings in your local keyboard layout
 * AltGr-Key
-* vim-mode keybindings
+* vim-mode/vim-mode-plus keybindings
 * tested on Windows and Linux
 * Multi-combo bindings (AltGr+Shift)
 
