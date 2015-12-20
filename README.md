@@ -21,6 +21,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [Spanish](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_spanish.gif) (`es_ES`)
 * [Spanish Latin](http://mylingos.com/keyboards/images/latinamerican.gif) (`es_LA`)
 * [Finnish](http://i.stack.imgur.com/leHzl.png) (`fi_FI`)
+* [Finnish(Mac)](http://i.stack.imgur.com/leHzl.png) (`fi_FI-mac`)
 * [French](https://www.terena.org/activities/multiling/ml-mua/test/img/kbd_french.gif) (`fr_FR`)
 * [French BÉPO](http://download.tuxfamily.org/dvorak/wiki/images/Carte-bepo-complete.png) (`fr_FR`)
 * [Belgian French](https://upload.wikimedia.org/wikipedia/commons/9/93/Belgian_keyboard_layout.png) (`fr_BE`)
