@@ -11,7 +11,7 @@ exports.charCodeToKeyIdentifier = (charCode) ->
   return 'U+' + padZero(charCode.toString(16).toUpperCase(), 4)
 
 exports.vimModeActive = (editor) ->
-  if editor? and 'vim-mode' in editor.classList
+  if editor? and ('vim-mode' in editor.classList or 'vim-mode-plus' in editor.classList)
     return true if 'operator-pending-mode' in editor.classList
     return true if 'normal-mode' in editor.classList
     return true if 'visual-mode' in editor.classList
