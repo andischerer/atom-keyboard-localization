@@ -110,6 +110,7 @@ KeyboardLocalization =
     @keymapGeneratorView = null
 
   onKeyDown: (event, cb) ->
+    return '' unless event
     @modifierStateHandler.handleKeyEvent(event)
     if @keyMapper.remap(event)
       character = String.fromCharCode(event.keyCode)
