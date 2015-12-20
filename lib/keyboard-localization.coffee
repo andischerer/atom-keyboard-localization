@@ -109,7 +109,7 @@ KeyboardLocalization =
     @keyMapper = null
     @keymapGeneratorView = null
 
-  onKeyDown: (event, cb) ->
+  onKeyDown: (event) ->
     return '' unless event
     @modifierStateHandler.handleKeyEvent(event)
     if @keyMapper.remap(event)
