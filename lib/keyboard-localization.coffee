@@ -42,6 +42,7 @@ KeyboardLocalization =
         'fr_FR-bepo'
         'fr_CA'
         'fi_FI'
+        'fi_FI-mac'
         'hu_HU'
         'it_IT'
         'ja_JP'
