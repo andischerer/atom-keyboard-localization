@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^2.1.0",
-    "fs-plus": "^2.0.4"
+    "fs-plus": "^2.8.1"
   },
   "keywords": [
     "keyboard",
