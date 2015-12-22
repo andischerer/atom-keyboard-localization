@@ -1,3 +1,8 @@
+## 1.4.13
+* fixed de_CH layout
+* prevent double translating of KeyboardEvents
+* fixed shift modifier in vim-mode sequence
+
 ## 1.4.12
 * add compatibility for vim-mode-plus package
 * added fi_FI-mac layout
