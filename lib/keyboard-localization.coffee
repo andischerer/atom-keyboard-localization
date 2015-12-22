@@ -112,12 +112,15 @@ KeyboardLocalization =
   onKeyDown: (event) ->
     return '' unless event
     @modifierStateHandler.handleKeyEvent(event)
-    if @keyMapper.remap(event)
+    # check KeyboardEvent already translated:
+    # vim-mode calls atom.keymaps.keystrokeForKeyboardEvent for command triggering
+    if event.translated or @keyMapper.remap(event)
       character = String.fromCharCode(event.keyCode)
-      if @modifierStateHandler.isAltGr() or vimModeActive(event.target)
-        return character
-      else
-        return @modifierStateHandler.getStrokeSequence(character)
+      if vimModeActive(event.target)
+        # Shift destroys vim-mode sequence (e.g) 3w on fr_FR layout (shift modifier is needed for number)
+        if @modifierStateHandler.isAltGr() or @modifierStateHandler.isShift()
+          return character
+      return @modifierStateHandler.getStrokeSequence(character)
     else
       return @orginalKeydownEvent(event)
 
