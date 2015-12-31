@@ -69,11 +69,13 @@
     },
     "192": {
         "shifted": 214,
-        "unshifted": 246
+        "unshifted": 246,
+        "alted": 248
     },
     "220": {
         "shifted": 189,
-        "unshifted": 167
+        "unshifted": 167,
+        "alted": 124
     },
     "221": {
         "shifted": 197,
@@ -82,7 +84,8 @@
     },
     "222": {
         "shifted": 196,
-        "unshifted": 228
+        "unshifted": 228,
+        "alted": 230
     },
     "226": {
         "shifted": 62,
