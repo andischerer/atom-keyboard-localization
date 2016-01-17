@@ -40,7 +40,8 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * Latvian (`lv_LV`)
 * [Portuguese Brazilian (ABNT2)](http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/KB_Portuguese_Brazil.svg/1280px-KB_Portuguese_Brazil.svg.png) (`pt_BR`)
 * Japanese (`ja_JP`)
-* [Czech](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Qwerty_cz.svg/1000px-Qwerty_cz.svg.png) (`cs_CZ-qwerty`)
+* Czech-qwertz (`cs_CZ`)
+* [Czech-qwerty](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Qwerty_cz.svg/1000px-Qwerty_cz.svg.png) (`cs_CZ-qwerty`)
 * [Estonian](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/KB_Estonian.svg/900px-KB_Estonian.svg.png) (`et_EE`)
 * Serbian (`sr_RS`)
 

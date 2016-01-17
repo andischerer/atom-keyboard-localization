@@ -29,6 +29,7 @@ KeyboardLocalization =
       default: 'de_DE'
       enum: [
         'cs_CZ-qwerty'
+        'cs_CZ'
         'da_DK'
         'de_CH'
         'de_DE-neo'
