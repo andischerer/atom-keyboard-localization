@@ -1,3 +1,8 @@
+## 1.4.14
+* fixed fi_FI layout
+* added cs_CZ-qwertz layout
+* upgraded package dependencies
+
 ## 1.4.13
 * fixed de_CH layout
 * prevent double translating of KeyboardEvents
