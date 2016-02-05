@@ -34,6 +34,7 @@ KeyboardLocalization =
         'de_CH'
         'de_DE-neo'
         'de_DE'
+        'en_GB'
         'es_ES'
         'es_LA'
         'et_EE'
