@@ -54,6 +54,7 @@ KeyboardLocalization =
         'pt_BR'
         'pt_PT'
         'ro_RO'
+        'ru_RU'
         'sl_SL'
         'sr_RS'
         'sv_SE'
