@@ -44,6 +44,7 @@ Inside Atom's packages management, click **Settings**, and in the freshly opened
 * [Czech-qwerty](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Qwerty_cz.svg/1000px-Qwerty_cz.svg.png) (`cs_CZ-qwerty`)
 * [Estonian](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/KB_Estonian.svg/900px-KB_Estonian.svg.png) (`et_EE`)
 * Serbian (`sr_RS`)
+* [United Kingdom](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/KB_United_Kingdom.svg/900px-KB_United_Kingdom.svg.png) (`en_GB`)
 
 ## Generate your own keymap
 ![](https://raw.github.com/andischerer/atom-keyboard-localization/master/screenshots/keymap-generator.gif)
