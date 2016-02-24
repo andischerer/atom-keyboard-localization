@@ -1,3 +1,11 @@
+## 1.4.15
+* added tr_TR layout
+* added ru_RU layout
+* added en_EN layout
+* fixed: AltGr + b should be { in Czech-qwerty
+* fixed: altgr-{ and altgr-} in es_LA
+* fixed: { output as \ in fr_CA
+
 ## 1.4.14
 * fixed fi_FI layout
 * added cs_CZ-qwertz layout
