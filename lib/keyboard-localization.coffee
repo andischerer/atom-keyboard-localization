@@ -57,6 +57,7 @@ KeyboardLocalization =
         'sl_SL'
         'sr_RS'
         'sv_SE'
+        'tr_TR'
       ]
       description: 'Pick your locale'
     useKeyboardLayoutFromPath:
