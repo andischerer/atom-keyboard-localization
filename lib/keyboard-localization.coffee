@@ -95,14 +95,14 @@ KeyboardLocalization =
 
       # Hijack KeymapManager
       # @TODO: Evil hack. Find an better way ...
-      @orginalKeydownEvent = atom.keymaps.keystrokeForKeyboardEvent
+      @orginalKeyEvent = atom.keymaps.keystrokeForKeyboardEvent
       atom.keymaps.keystrokeForKeyboardEvent = (event) =>
-        @onKeyDown event
+        @onKeyEvent event
 
   deactivate: ->
     if @keymapLoader.isLoaded()
-      atom.keymaps.keystrokeForKeyboardEvent = @orginalKeydownEvent
-      @orginalKeydownEvent = null
+      atom.keymaps.keystrokeForKeyboardEvent = @orginalKeyEvent
+      @orginalKeyEvent = null
 
     @changeUseKeyboardLayout.dispose()
     @changeUseKeyboardLayoutFromPath.dispose()
@@ -114,12 +114,13 @@ KeyboardLocalization =
     @keyMapper = null
     @keymapGeneratorView = null
 
-  onKeyDown: (event) ->
+  onKeyEvent: (event) ->
     return '' unless event
     @modifierStateHandler.handleKeyEvent(event)
+
     # check KeyboardEvent already translated:
     # vim-mode calls atom.keymaps.keystrokeForKeyboardEvent for command triggering
-    if event.translated or @keyMapper.remap(event)
+    if event.type == 'keydown' && (event.translated or @keyMapper.remap(event))
       character = String.fromCharCode(event.keyCode)
       if vimModeActive(event.target)
         # Shift destroys vim-mode sequence (e.g) 3w on fr_FR layout (shift modifier is needed for number)
@@ -127,6 +128,6 @@ KeyboardLocalization =
           return character
       return @modifierStateHandler.getStrokeSequence(character)
     else
-      return @orginalKeydownEvent(event)
+      return @orginalKeyEvent(event)
 
 module.exports = KeyboardLocalization
