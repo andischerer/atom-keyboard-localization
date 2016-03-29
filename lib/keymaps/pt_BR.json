@@ -35,7 +35,8 @@
     },
     "187": {
         "unshifted": 61,
-        "shifted": 43
+        "shifted": 43,
+        "alted": 167
     },
     "188": {
         "unshifted": 44,
@@ -55,6 +56,7 @@
     },
     "221": {
         "unshifted": 91,
-        "shifted": 123
+        "shifted": 123,
+        "alted": 170
     }
 }
