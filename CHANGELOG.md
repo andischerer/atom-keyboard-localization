@@ -1,3 +1,8 @@
+## 1.4.16
+* reverted: altgr-{ and altgr-} in es_LA
+* fixed: tr_TR layout
+* added uk_UA layout
+
 ## 1.4.15
 * added tr_TR layout
 * added ru_RU layout
