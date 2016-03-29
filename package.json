@@ -6,7 +6,7 @@
   "repository": "https://github.com/andischerer/atom-keyboard-localization.git",
   "license": "MIT",
   "engines": {
-    "atom": ">1.0.2"
+    "atom": ">1.7.0"
   },
   "dependencies": {
     "atom-space-pen-views": "2.1.1",
