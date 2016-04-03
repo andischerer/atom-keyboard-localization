@@ -1,3 +1,6 @@
+## 1.4.18
+* fixed atom.engines atom-beta channel support 
+
 ## 1.4.17
 * fixed altgr keyup listener on atom >1.7
 
