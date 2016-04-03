@@ -1,3 +1,6 @@
+## 1.4.17
+* fixed altgr keyup listener on atom >1.7
+
 ## 1.4.16
 * reverted: altgr-{ and altgr-} in es_LA
 * fixed: tr_TR layout
