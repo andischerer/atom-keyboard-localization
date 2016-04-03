@@ -61,12 +61,6 @@ class ModifierStateHandler
   lastKeyIdentifier: null
 
   ###*
-   * keyUpListener for AltGrMode recognition
-   * @type {event}
-  ###
-  keyUpEventListener: null
-
-  ###*
    * clear modifiers listener on editor blur and focus
    * @type {event}
   ###
@@ -93,7 +87,7 @@ class ModifierStateHandler
     @hasCmd = false
 
   ###*
-   * Resets all the flags and removes onAltGrUp event listener.
+   * Resets all the flags.
   ###
   quitAltGrMode: ->
     @ctrlDown = @CtrlDownStates.NOT_YET_DETECTED
@@ -101,16 +95,15 @@ class ModifierStateHandler
     @hasAltGr = false
     @lastTimeStamp = null
     @lastKeyIdentifier = null
-    document.removeEventListener 'keyup', @keyUpEventListener
 
   ###*
    * Detects the release of AltGr key by checking all keyup events
    * until we receive one with ctrl key code. Once detected, reset
-   * all the flags and also remove this event listener.
+   * all the flags.
    *
    * @param {KeyboardEvent} e keyboard event object
   ###
-  onAltGrUp: (e) ->
+  detectAltGrKeyUp: (e) ->
     if process.platform == 'win32'
       key = e.keyCode || e.which
       if @altGrDown && key == KeyEvent.DOM_VK_CONTROL
@@ -143,9 +136,6 @@ class ModifierStateHandler
         else if @ctrlDown == @CtrlDownStates.DETECTED && e.altKey && e.ctrlKey && e.keyIdentifier == 'Alt' && e.timeStamp - @lastTimeStamp < @MAX_INTERVAL_FOR_CTRL_ALT_KEYS && (e.location == 2 or e.keyLocation == 2)
           @altGrDown = true
           @lastKeyIdentifier = 'Alt'
-          @keyUpEventListener = (e) =>
-            @onAltGrUp(e)
-          document.addEventListener 'keyup', @keyUpEventListener
         else
           # Reset ctrlDown so that we can start over in detecting the two key events
           # required for AltGr key.
@@ -163,9 +153,6 @@ class ModifierStateHandler
       if !@altGrDown
         if e.keyIdentifier == LINUX_ALTGR_IDENTIFIER
           @altGrDown = true
-          @keyUpEventListener = (e) =>
-            @onAltGrUp(e)
-          document.addEventListener 'keyup', @keyUpEventListener
     else
       return
 
@@ -175,7 +162,10 @@ class ModifierStateHandler
    * @param {KeyboardEvent} e keyboard event object
   ###
   handleKeyEvent: (e) ->
-    @detectAltGrKeyDown(e)
+    if e.type == 'keydown'
+      @detectAltGrKeyDown(e)
+    if e.type == 'keyup'
+      @detectAltGrKeyUp(e)
 
     if process.platform == 'win32'
       @hasCtrl = !@altGrDown && e.ctrlKey
