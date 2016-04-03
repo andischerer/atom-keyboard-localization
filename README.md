@@ -2,7 +2,14 @@
 This is a compatibility package for atom text editor which tries to remap keycodes for your given keyboard layout.
 
 ## Installation ##
+### From atom GUI
 Go in Atom's **Settings** page, through **packages** section. Under **Community Packages** search for "*keyboard-localization*" and Install it.
+
+### From commandline
+Open commandline and install this package by executing the following command:
+```
+apm install keyboard-localization
+```
 
 ## Usage ##
 Inside Atom's packages management, click **Settings**, and in the freshly opened panel, either choose an existing Keyboard Layout from the list, or pick a keymap file from the filepicker.
