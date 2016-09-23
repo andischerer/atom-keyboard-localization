@@ -1,3 +1,6 @@
+## 1.5.0
+* Final release => package is deprecated
+
 ## 1.4.18
 * fixed atom.engines atom-beta channel support 
 

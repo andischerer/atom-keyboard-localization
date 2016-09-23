@@ -1,19 +1,19 @@
-util = require('util')
-KeymapLoader = require './keymap-loader'
-KeyMapper = require './key-mapper'
-ModifierStateHandler = require './modifier-state-handler'
-{vimModeActive} = require './helpers'
+#util = require('util')
+#KeymapLoader = require './keymap-loader'
+#KeyMapper = require './key-mapper'
+#ModifierStateHandler = require './modifier-state-handler'
+# {vimModeActive} = require './helpers'
 
-KeymapGeneratorView = null
-KeymapGeneratorUri = 'atom://keyboard-localization/keymap-manager'
+#KeymapGeneratorView = null
+#KeymapGeneratorUri = 'atom://keyboard-localization/keymap-manager'
 
-createKeymapGeneratorView = (state) ->
-  KeymapGeneratorView ?= require './views/keymap-generator-view'
-  new KeymapGeneratorView(state)
+#createKeymapGeneratorView = (state) ->
+#  KeymapGeneratorView ?= require './views/keymap-generator-view'
+#  new KeymapGeneratorView(state)
 
-atom.deserializers.add
-  name: 'KeymapGeneratorView'
-  deserialize: (state) -> createKeymapGeneratorView(state)
+#atom.deserializers.add
+#  name: 'KeymapGeneratorView'
+#  deserialize: (state) -> createKeymapGeneratorView(state)
 
 KeyboardLocalization =
   pkg: 'keyboard-localization'
@@ -23,6 +23,7 @@ KeyboardLocalization =
   modifierStateHandler: null
   keymapGeneratorView: null
 
+  ###
   config:
     useKeyboardLayout:
       type: 'string'
@@ -66,8 +67,20 @@ KeyboardLocalization =
       type: 'string'
       default: ''
       description: 'Provide an absolute path to your keymap-json file'
-
+  ###
+  
   activate: (state) ->
+    options =
+      dismissable: true
+      detail: """The atom team has managed to integrate support for international\n
+      keyboards into atom v1.12.x core.\n
+      Feel free to uninstall this package.\n
+      See details at:\n
+      https://github.com/andischerer/atom-keyboard-localization
+      """
+    atom.notifications.addInfo('The "keyboard-localization" package has been deprecated!', options)
+
+    ###
     atom.workspace.addOpener (filePath) ->
       createKeymapGeneratorView(uri: KeymapGeneratorUri) if filePath is KeymapGeneratorUri
 
@@ -98,8 +111,10 @@ KeyboardLocalization =
       @orginalKeyEvent = atom.keymaps.keystrokeForKeyboardEvent
       atom.keymaps.keystrokeForKeyboardEvent = (event) =>
         @onKeyEvent event
+    ###
 
   deactivate: ->
+    ###
     if @keymapLoader.isLoaded()
       atom.keymaps.keystrokeForKeyboardEvent = @orginalKeyEvent
       @orginalKeyEvent = null
@@ -113,6 +128,7 @@ KeyboardLocalization =
     @keymapLoader = null
     @keyMapper = null
     @keymapGeneratorView = null
+    ###
 
   onKeyEvent: (event) ->
     return '' unless event
