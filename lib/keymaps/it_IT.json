@@ -1,112 +1,28 @@
 {
-    "48": {
-        "alted": 125,
-        "shifted": 61
-    },
-    "49": {
-        "alted": 185,
-        "shifted": 33
-    },
     "50": {
-        "alted": 178,
         "shifted": 34
     },
     "51": {
-        "alted": 179,
         "shifted": 163
     },
-    "52": {
-        "alted": 188,
-        "shifted": 36
-    },
     "53": {
-        "alted": 189,
+        "alted": 8364,
         "shifted": 37
     },
     "54": {
-        "alted": 172,
         "shifted": 38
     },
     "55": {
-        "alted": 123,
         "shifted": 47
     },
     "56": {
-        "alted": 91,
         "shifted": 40
     },
     "57": {
-        "alted": 93,
         "shifted": 41
-    },
-    "65": {
-        "alted": 230
-    },
-    "66": {
-        "alted": 8221
-    },
-    "67": {
-        "alted": 162
-    },
-    "68": {
-        "alted": 240
     },
     "69": {
         "alted": 8364
-    },
-    "70": {
-        "alted": 273
-    },
-    "71": {
-        "alted": 331
-    },
-    "72": {
-        "alted": 295
-    },
-    "73": {
-        "alted": 8594
-    },
-    "76": {
-        "alted": 322
-    },
-    "77": {
-        "alted": 181
-    },
-    "78": {
-        "alted": 241
-    },
-    "79": {
-        "alted": 248
-    },
-    "80": {
-        "alted": 254
-    },
-    "81": {
-        "alted": 64
-    },
-    "82": {
-        "alted": 182
-    },
-    "83": {
-        "alted": 223
-    },
-    "84": {
-        "alted": 359
-    },
-    "85": {
-        "alted": 8595
-    },
-    "86": {
-        "alted": 8220
-    },
-    "87": {
-        "alted": 322
-    },
-    "88": {
-        "alted": 187
-    },
-    "89": {
-        "alted": 8592
     },
     "186": {
         "alted": 91,
@@ -121,44 +37,39 @@
         "shifted": 42
     },
     "188": {
-        "alted": 44,
-        "shifted": 59
+        "alted": 44
     },
     "189": {
-        "alted": 45,
-        "shifted": 95
+        "alted": 45
     },
     "190": {
-        "alted": 46,
-        "shifted": 58
+        "alted": 127
     },
     "191": {
-        "alted": 249,
-        "shifted": 167
+        "alted": 249
     },
     "192": {
-        "alted": 64,
-        "unshifted": 242,
-        "shifted": 231
+        "altshifted": 231,
+        "alted": 64
     },
     "219": {
-        "alted": 96,
         "unshifted": 39,
         "shifted": 63
     },
     "220": {
-        "alted": 172,
         "unshifted": 92,
-        "shifted": 62
+        "shifted": 124
     },
     "221": {
-        "alted": 126,
         "unshifted": 236,
         "shifted": 94
     },
     "222": {
         "alted": 35,
-        "unshifted": 224,
         "shifted": 176
+    },
+    "226": {
+        "unshifted": 60,
+        "shifted": 62
     }
 }
